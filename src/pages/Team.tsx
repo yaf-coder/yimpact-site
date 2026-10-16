@@ -25,15 +25,10 @@ export function Team() {
   const executive = organizers.filter((organizer) => organizer.rank === 'executive');
   const leads = organizers.filter((organizer) => organizer.rank === 'team');
 
-  const groups: { key: string; label: string; note: string; members: Member[] }[] = [
-    { key: 'chair', label: 'Chair', note: 'Sets direction and answers for the programme', members: chair },
-    {
-      key: 'executive',
-      label: 'Executive council',
-      note: 'Reports to the chair. Each director owns one half of the programme',
-      members: executive,
-    },
-    { key: 'leads', label: 'Leads', note: 'Reports to the council. Runs the day-to-day work', members: leads },
+  const groups: { key: string; label: string; members: Member[] }[] = [
+    { key: 'chair', label: 'Chair', members: chair },
+    { key: 'executive', label: 'Executive council', members: executive },
+    { key: 'leads', label: 'Leads', members: leads },
   ];
 
   function toggle(id: string) {
@@ -71,7 +66,6 @@ export function Team() {
                         <span className="px-2 text-ink-300">/</span>
                         {group.label}
                       </p>
-                      <p className="mt-1.5 text-center text-xs text-ink-400">{group.note}</p>
 
                       <div className="mt-4 space-y-4">
                         {intoRows(group.members).map((row, rowIndex) => {

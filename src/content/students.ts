@@ -21,41 +21,32 @@ export const studentSteps: StudentStep[] = [
     id: 'apply',
     name: 'Apply',
     timing: 'Before week 1',
-    summary:
-      'One short form. No team required, no prototype required, no prior research experience required. Tell us the problem you care about.',
+    summary: "Submit your initial pitch. You don't need a team or prototype at this stage, just an idea!",
   },
   {
     id: 'form-a-team',
     name: 'Form a team',
     timing: 'Weeks 1–2',
-    summary:
-      'Kickoff, track introductions, partner problem prompts, faculty lightning talks, and structured matching across schools and years.',
+    summary: 'Find 2–3 other people to work alongside.',
   },
   {
     id: 'research',
     name: 'Research',
     timing: 'Weeks 3–6',
     summary:
-      'Define the problem, consult faculty and partner organizations, review the evidence, identify who is actually affected, and choose your output.',
+      "Define the problem you're trying to solve. Start fleshing out a final pitch and consult our partners. You'll be paired with a mentor who will help guide you.",
   },
   {
     id: 'build',
     name: 'Build, analyze, or design',
-    timing: 'Weeks 7–11',
+    timing: 'Weeks 7–13',
     summary:
       'Make the thing: a prototype, an empirical study, a policy memo, a venture or nonprofit proposal, a governance framework, or a pilot plan.',
-  },
-  {
-    id: 'refine',
-    name: 'Refine',
-    timing: 'Weeks 12–13',
-    summary: 'Presentation coaching, rubric review, mentor feedback, partner office hours, and a final pass on the work.',
   },
   {
     id: 'present',
     name: 'Present at the Expo',
     timing: 'Expo weekend',
-    summary:
-      'Show your work to partners across nine domains, meet the judges walking your track, and leave with the commitments you have earned.',
+    summary: 'Showcase your work to industry professionals and our partners across nine domains!',
   },
 ];
