@@ -70,7 +70,7 @@ export function Sponsors() {
       description="The partners of the Yale Impact Expo across nine domains, from corporate and government to philanthropy and healthcare."
     >
       <PageHeader
-        eyebrow={`${sponsors.length} partners · 9 domains`}
+        eyebrow={sponsors.length > 0 ? `${sponsors.length} partners · 9 domains` : 'To be announced · 9 domains'}
         title="Partners"
         meta={
           <>
@@ -84,6 +84,14 @@ export function Sponsors() {
 
       <div className="mx-auto max-w-[1200px] px-4 pb-8 sm:px-6 md:px-10">
         <div className="haze px-5 py-8 sm:px-7 md:px-10 md:py-12">
+        {sponsors.length === 0 ? (
+          <div className="mb-8 border-b border-bar/25 pb-6">
+            <p className="label text-blue-500">To be announced</p>
+            <p className="mt-2 max-w-[62ch] text-base leading-[1.6] text-ink-700">
+              We are confirming our partners for the coming Expo. They appear here as they sign on.
+            </p>
+          </div>
+        ) : null}
         {isAdmin ? (
           <div className="haze-inner mb-6 flex flex-wrap items-center justify-between gap-4 border border-bar/25 bg-ink-50/70 px-4 py-3">
             <p className="label text-ink-500">

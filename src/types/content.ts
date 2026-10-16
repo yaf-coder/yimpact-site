@@ -28,8 +28,7 @@ export interface Sponsor {
   featured: boolean; // True if the home page shows this sponsor.
 }
 
-// The Expo team runs in three ranks, plus the standing officers of the
-// organization who sit in the admin panel on the Team page.
+// The Expo team runs in three ranks.
 export type OrganizerRank = 'chair' | 'executive' | 'team';
 
 export interface Organizer {
@@ -39,21 +38,9 @@ export interface Organizer {
   rank: OrganizerRank;
   affiliation?: string; // Example: "Yale '27, Computer Science"
   headshotUrl: string;
-  bio: string;
+  bio?: string;
   linkedinUrl?: string;
-  email: string;
-}
-
-// Officers of the organization rather than of the Expo itself. These appear
-// in the vertical panel on the left of the Team page.
-export interface AdminOfficer {
-  id: string;
-  name: string;
-  role: string; // Example: "President"
-  affiliation?: string;
-  headshotUrl: string;
-  bio: string;
-  email: string;
+  email?: string;
 }
 
 export interface ScheduleItem {

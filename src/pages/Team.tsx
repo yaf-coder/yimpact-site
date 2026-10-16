@@ -3,8 +3,7 @@ import { Layout } from '../components/layout/Layout';
 import { Reveal } from '../components/ui/Reveal';
 import { MemberChip, MemberPanel } from '../components/MemberTile';
 import type { Member } from '../components/MemberTile';
-import { AdminPanel } from '../components/AdminPanel';
-import { adminOfficers, organizers } from '../content/organizers';
+import { organizers } from '../content/organizers';
 
 // Members fill a row up to this many, then a new row is spawned. Every row is
 // centred, so the group stays symmetric however many people are in it.
@@ -25,11 +24,14 @@ export function Team() {
   const executive = organizers.filter((organizer) => organizer.rank === 'executive');
   const leads = organizers.filter((organizer) => organizer.rank === 'team');
 
-  const groups: { key: string; label: string; members: Member[] }[] = [
-    { key: 'chair', label: 'Chair', members: chair },
-    { key: 'executive', label: 'Executive council', members: executive },
-    { key: 'leads', label: 'Leads', members: leads },
-  ];
+  // A rank with nobody in it renders no heading.
+  const groups = (
+    [
+      { key: 'chair', label: 'Chair', members: chair },
+      { key: 'executive', label: 'Executive council', members: executive },
+      { key: 'leads', label: 'Leads', members: leads },
+    ] as { key: string; label: string; members: Member[] }[]
+  ).filter((group) => group.members.length > 0);
 
   function toggle(id: string) {
     setOpenId((current) => (current === id ? null : id));
@@ -39,7 +41,7 @@ export function Team() {
     <Layout
       pattern="team"
       title="Team · Yale Impact Expo"
-      description="The students who run the Yale Impact Expo, and the officers of the organization behind it."
+      description="The students who run the Yale Impact Expo."
     >
       <div className="mx-auto max-w-[1200px] px-4 py-6 sm:px-6 md:px-10 md:py-10">
         <div className="haze px-5 py-8 sm:px-7 md:px-10 md:py-12">
@@ -49,9 +51,7 @@ export function Team() {
             </h1>
           </Reveal>
 
-          {/* The Expo team comes first in reading order, so on a narrow screen the
-              officers fall below it; from xl they take the right-hand column. */}
-          <div className="mt-10 grid gap-10 xl:grid-cols-[minmax(0,1fr)_200px] xl:gap-10">
+          <div className="mt-10">
             <div>
               <div className="border-b border-bar/25 pb-3">
                 <h2 className="display-2">Expo team</h2>
@@ -95,8 +95,6 @@ export function Team() {
                 ))}
               </div>
             </div>
-
-            <AdminPanel officers={adminOfficers} openId={openId} onToggle={toggle} />
           </div>
         </div>
       </div>
