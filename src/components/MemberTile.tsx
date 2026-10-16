@@ -6,8 +6,8 @@ export interface Member {
   role: string;
   affiliation?: string;
   headshotUrl: string;
-  bio: string;
-  email: string;
+  bio?: string;
+  email?: string;
 }
 
 // Every tile on the Team page is 200px wide, officers and Expo team alike.
@@ -73,13 +73,17 @@ export function MemberPanel({ member, id, compact = false }: MemberPanelProps) {
           <h3 className="display-3">{member.name}</h3>
           <p className="label mt-1.5 text-blue-500">{member.role}</p>
           {member.affiliation ? <p className="mt-1 text-xs text-ink-400">{member.affiliation}</p> : null}
-          <p className="mt-3 max-w-[68ch] text-sm leading-[1.65] text-ink-700">{member.bio}</p>
+          {member.bio ? (
+            <p className="mt-3 max-w-[68ch] text-sm leading-[1.65] text-ink-700">{member.bio}</p>
+          ) : null}
+          {member.email ? (
           <a
             href={`mailto:${member.email}`}
             className="label mt-4 inline-flex items-center border border-bar/45 px-4 py-2.5 text-ink-900 transition-colors duration-300 ease-out hover:border-bar hover:bg-ink-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
           >
             Contact me
           </a>
+          ) : null}
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { asset } from '../../lib/asset';
 
 interface FooterProps {
   contactEmail: string;
@@ -23,11 +24,15 @@ export function Footer({ contactEmail, sponsorEmail }: FooterProps) {
         <div className="haze px-5 py-8 sm:px-7 md:px-10 md:py-10">
         <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_auto]">
           <div>
-            <p className="display-2 max-w-[14ch]">
-              Yale Impact <span className="accent-serif">Expo</span>
-            </p>
-            <p className="mt-4 max-w-[46ch] text-sm leading-[1.6] text-ink-500">
-              Build something serious, and earn access to the people who can advance it.
+            <img
+              src={asset('/brand/impex.png')}
+              alt="Yale Impact Expo"
+              width={152}
+              height={56}
+              className="h-14 w-auto"
+            />
+            <p className="mt-5 text-lg leading-[1.4] tracking-[-0.02em] text-ink-700">
+              Your <span className="accent-serif">impact</span> starts here
             </p>
           </div>
           <nav aria-label="Footer">

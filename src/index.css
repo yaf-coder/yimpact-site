@@ -13,9 +13,8 @@
      stays the accent for buttons and links. */
   --color-brand: #e00034;
 
-  /* The top bar takes a sober shade of the same hue (346°): deeper and less
-     saturated, so it reads as a masthead rather than competing with the
-     motif beneath it. */
+  /* A sober shade of the same hue (346°). The rules and panel borders use it.
+     It is also the maroon in the logo. */
   --color-bar: #7b3243;
 
   --color-blue-900: #00224a;

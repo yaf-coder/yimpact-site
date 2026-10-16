@@ -59,7 +59,9 @@ export function Resources() {
       description="Every offer our partners make to Expo teams: contacts, office hours, mentors, tool credits, and codes."
     >
       <PageHeader
-        eyebrow={status === 'ready' ? `${resources.length} resources` : 'Resources'}
+        eyebrow={
+          status !== 'ready' ? 'Resources' : resources.length > 0 ? `${resources.length} resources` : 'To be announced'
+        }
         title={
           <>
             What our partners put on the <span className="accent-serif">table</span>
@@ -123,7 +125,16 @@ export function Resources() {
             </ErrorNote>
           ) : null}
 
-          {status === 'ready' ? (
+          {status === 'ready' && resources.length === 0 ? (
+            <div>
+              <p className="label text-blue-500">To be announced</p>
+              <p className="mt-2 max-w-[62ch] text-base leading-[1.6] text-ink-700">
+                Partner resources open as partners sign on: contacts, office hours, mentors, and tool credits.
+              </p>
+            </div>
+          ) : null}
+
+          {status === 'ready' && resources.length > 0 ? (
             <Reveal>
               <ResourceList resources={visible} headingLevel={2} />
             </Reveal>

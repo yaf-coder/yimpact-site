@@ -24,3 +24,6 @@ Thumbs.db
 
 # TypeScript build artifacts
 *.tsbuildinfo
+
+# Windows download markers
+*:Zone.Identifier

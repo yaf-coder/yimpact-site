@@ -9,7 +9,8 @@ import { SponsorLogoGrid } from '../components/SponsorLogoGrid';
 import { OrganizerCard } from '../components/OrganizerCard';
 import { Byline } from '../components/PostList';
 import { event } from '../content/event';
-import { domainLabels, domainOrder, sponsors } from '../content/sponsors';
+import { domainLabels, domainOrder } from '../content/sponsors';
+import { useSponsors } from '../admin/sponsorStore';
 import { organizers } from '../content/organizers';
 import { tracks } from '../content/tracks';
 import { pathways } from '../content/pathways';
@@ -31,7 +32,11 @@ function SerifTail({ text }: { text: string }) {
 }
 
 export function Home() {
-  const featuredSponsors = sponsors.filter((sponsor) => sponsor.featured);
+  // Partners live in the database now. Show featured ones first.
+  const { sponsors } = useSponsors();
+  const shownSponsors = [...sponsors]
+    .sort((a, b) => Number(b.featured) - Number(a.featured))
+    .slice(0, 10);
   const council = organizers.filter((organizer) => organizer.rank !== 'team').slice(0, 5);
   // The hero must not wait on a request. This section stays empty until the
   // stories arrive.
@@ -150,11 +155,22 @@ export function Home() {
             </li>
           ))}
         </ul>
-        <SponsorLogoGrid sponsors={featuredSponsors} />
+        {shownSponsors.length > 0 ? (
+          <SponsorLogoGrid sponsors={shownSponsors} />
+        ) : (
+          <div className="border-t border-bar/25 pt-4">
+            <p className="label text-blue-500">To be announced</p>
+            <p className="mt-2 max-w-[62ch] text-sm leading-[1.6] text-ink-700">
+              We are confirming our partners for the coming Expo.
+            </p>
+          </div>
+        )}
         <p className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
-          <Link to="/sponsors" className={inlineLink}>
-            All {sponsors.length} partners →
-          </Link>
+          {sponsors.length > 0 ? (
+            <Link to="/sponsors" className={inlineLink}>
+              All {sponsors.length} partners →
+            </Link>
+          ) : null}
           <a href={`mailto:${event.sponsorEmail}`} className={inlineLink}>
             Become a partner →
           </a>

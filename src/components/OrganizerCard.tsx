@@ -40,7 +40,9 @@ export function OrganizerCard({ organizer, size = 'md' }: OrganizerCardProps) {
           <p className="label mt-1.5 text-blue-500">{organizer.role}</p>
           {organizer.affiliation ? <p className="mt-1 text-xs text-ink-400">{organizer.affiliation}</p> : null}
         </div>
-        <p className={`leading-[1.55] text-ink-500 ${size === 'sm' ? 'text-xs' : 'text-sm'}`}>{organizer.bio}</p>
+        {organizer.bio ? (
+          <p className={`leading-[1.55] text-ink-500 ${size === 'sm' ? 'text-xs' : 'text-sm'}`}>{organizer.bio}</p>
+        ) : null}
         {organizer.linkedinUrl ? (
           <a
             href={organizer.linkedinUrl}

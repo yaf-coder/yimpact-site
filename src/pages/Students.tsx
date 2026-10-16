@@ -19,10 +19,10 @@ export function Students() {
         eyebrow="For students"
         title={
           <>
-            Spend a semester on something that does <span className="accent-serif">good</span>
+            Have an idea? Work with the best to <span className="accent-serif">build</span> it.
           </>
         }
-        meta="Open to every Yale student, in every school and every year. No team required, no prototype required, no prior connection to a lab or a firm required. Free to take part."
+        meta={`Bring your pitch to Impact Expo in ${event.expoSeason}. You'll have the opportunity to work alongside and network with some of the biggest leaders in the industry. Open to Yale students of all grade levels!`}
       />
 
       <div className="mx-auto max-w-[1200px] px-4 pb-8 sm:px-6 md:px-10">
@@ -36,12 +36,6 @@ export function Students() {
             <div className="flex flex-col">
               <h2 className="display-2 max-w-[18ch]">Start here</h2>
               <p className="mt-4 text-base leading-[1.6] text-ink-700">{walkthroughSummary}</p>
-              <p className="mt-4 text-sm leading-[1.6] text-ink-500">
-                The short version: pick a problem that matters to someone other than you, spend a semester doing it
-                justice with faculty and partner mentorship behind you, and present the result to the people who can
-                actually put it to use. That the same room can advance your own path is a genuine bonus — it is not
-                why the programme exists.
-              </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <a href={`mailto:${event.contactEmail}`} className={buttonClassNames('primary')}>
                   Ask a question

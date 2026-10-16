@@ -11,6 +11,7 @@ export const event: EventDetails = {
   mission:
     'We believe the best thinking on this campus should end up somewhere it does good. The Expo exists to point student ambition at real public problems, to hold that work to an evidence standard the people it affects would recognise, and to see it through to something that actually lands.',
   dateLabel: 'Kickoff autumn 2026 · Expo weekend spring 2027',
+  expoSeason: 'spring 2027',
   startsAt: '2027-04-16T17:00:00-04:00',
   endsAt: '2027-04-18T16:00:00-04:00',
   venueName: 'Yale University',

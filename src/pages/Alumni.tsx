@@ -55,9 +55,7 @@ export function Alumni() {
               )}
             </p>
             <p className="mt-5 max-w-[62ch] text-base leading-[1.6] text-ink-500">
-              Generations of Yale graduates, the companies they have built, and the clubs that keep them connected.
-              Their contributions fund continuation grants and mentorship, and carry student work out into the
-              communities it was built to serve.
+              Learn more about generations of Yale graduates and their impacts.
             </p>
           </Reveal>
         </header>
@@ -98,9 +96,13 @@ export function Alumni() {
               Give back to the work happening <span className="accent-serif">now</span>
             </h2>
             <p className="mt-4 max-w-[62ch] text-base leading-[1.6] text-ink-700">
-              Alumni, alumni-led companies, and Yale clubs can fund continuation grants, back a track, or mentor a
-              team through the semester. Write to us and we will share how contributions are directed and
-              recognised.
+              Are you an alum, or do you work with an alumni-led company or Yale club? Reach out to us to fund
+              continuation grants, back a track, or mentor a team through the semester! You can learn more about how
+              contributions are directed and recognized{' '}
+              <a href={`mailto:${event.sponsorEmail}`} className="border-b border-bar/45 pb-0.5 text-ink-900 transition-colors duration-300 ease-out hover:border-bar focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500">
+                here
+              </a>
+              .
             </p>
             <a href={`mailto:${event.sponsorEmail}`} className={`${buttonClassNames('primary')} mt-6`}>
               {event.sponsorEmail}
