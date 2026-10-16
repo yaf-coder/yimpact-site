@@ -5,11 +5,10 @@ import type { Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
-// GitHub Pages serves a project site from https://<user>.github.io/<repo>/, so
-// every asset and route needs that prefix. The workflow sets VITE_BASE; the
-// default suits a local `npm run build`. For a custom domain or a user page,
-// set VITE_BASE=/ instead.
-const base = process.env.VITE_BASE ?? '/yimpact-site/';
+// The site is served from the root of its custom domain, yaleimpex.org, so
+// the base is /. To serve it from https://<user>.github.io/<repo>/ instead,
+// set VITE_BASE=/<repo>/ for the build.
+const base = process.env.VITE_BASE ?? '/';
 
 // GitHub Pages has no server-side rewrite, so a deep link like /team would
 // 404. Pages serves 404.html for any unknown path, so shipping a copy of

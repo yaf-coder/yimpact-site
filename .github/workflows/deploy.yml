@@ -42,11 +42,11 @@ jobs:
             exit 1
           fi
 
-      # The repo name is the path the site is served from. Set VITE_BASE to /
-      # for a custom domain or a user page.
+      # The custom domain serves the site from its root. Without a custom
+      # domain, Pages serves it from /<repo>/ and this must be /<repo>/.
       - name: Build
         env:
-          VITE_BASE: /${{ github.event.repository.name }}/
+          VITE_BASE: /
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: npm run build
