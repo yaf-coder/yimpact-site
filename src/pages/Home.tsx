@@ -16,6 +16,7 @@ import { tracks } from '../content/tracks';
 import { pathways } from '../content/pathways';
 import { faq } from '../content/faq';
 import { usePosts } from '../hooks/usePosts';
+import type { OrganizerRank } from '../types/content';
 
 const inlineLink =
   'label text-ink-500 transition-colors duration-300 ease-out hover:text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500';
@@ -37,7 +38,8 @@ export function Home() {
   const shownSponsors = [...sponsors]
     .sort((a, b) => Number(b.featured) - Number(a.featured))
     .slice(0, 10);
-  const council = organizers.filter((organizer) => organizer.rank !== 'team').slice(0, 5);
+  const rankOrder: Record<OrganizerRank, number> = { director: 0, chair: 1, executive: 2, team: 3 };
+  const everyone = [...organizers].sort((a, b) => rankOrder[a.rank] - rankOrder[b.rank]);
   // The hero must not wait on a request. This section stays empty until the
   // stories arrive.
   const { posts } = usePosts();
@@ -183,7 +185,7 @@ export function Home() {
 
       <Section index="06" eyebrow="Team" heading="Who runs it">
         <ul className="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-4">
-          {council.map((organizer) => (
+          {everyone.map((organizer) => (
             <li key={organizer.id}>
               <OrganizerCard organizer={organizer} size="sm" />
             </li>

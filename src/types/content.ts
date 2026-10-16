@@ -28,8 +28,8 @@ export interface Sponsor {
   featured: boolean; // True if the home page shows this sponsor.
 }
 
-// The Expo team runs in three ranks.
-export type OrganizerRank = 'chair' | 'executive' | 'team';
+// The Expo team runs in four ranks, widest at the bottom.
+export type OrganizerRank = 'director' | 'chair' | 'executive' | 'team';
 
 export interface Organizer {
   id: string;

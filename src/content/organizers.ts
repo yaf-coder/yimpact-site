@@ -4,9 +4,17 @@ import type { Organizer } from '../types/content';
 // A bio and an email are optional. The Team page shows only what is here.
 export const organizers: Organizer[] = [
   {
+    id: 'yafee-khan',
+    name: 'Yafee Khan',
+    role: 'Director',
+    rank: 'director',
+    headshotUrl: '/headshots/yafee-khan.svg',
+    email: 'yafee.khan@yale.edu',
+  },
+  {
     id: 'eric-zou',
     name: 'Eric Zou',
-    role: 'Tech Lead',
+    role: 'Tech Chair',
     rank: 'chair',
     affiliation: "Yale '27, Computer Science",
     headshotUrl: '/headshots/eric-zou.svg',

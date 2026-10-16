@@ -20,6 +20,7 @@ function intoRows(members: Member[]): Member[][] {
 export function Team() {
   const [openId, setOpenId] = useState<string | null>(null);
 
+  const director = organizers.filter((organizer) => organizer.rank === 'director');
   const chair = organizers.filter((organizer) => organizer.rank === 'chair');
   const executive = organizers.filter((organizer) => organizer.rank === 'executive');
   const leads = organizers.filter((organizer) => organizer.rank === 'team');
@@ -27,6 +28,7 @@ export function Team() {
   // A rank with nobody in it renders no heading.
   const groups = (
     [
+      { key: 'director', label: 'Director', members: director },
       { key: 'chair', label: 'Chair', members: chair },
       { key: 'executive', label: 'Executive council', members: executive },
       { key: 'leads', label: 'Leads', members: leads },
@@ -52,12 +54,7 @@ export function Team() {
           </Reveal>
 
           <div className="mt-10">
-            <div>
-              <div className="border-b border-bar/25 pb-3">
-                <h2 className="display-2">Expo team</h2>
-              </div>
-
-              <div className="mt-8 space-y-8">
+            <div className="space-y-8">
                 {groups.map((group, groupIndex) => (
                   <Reveal key={group.key}>
                     <section aria-labelledby={`rank-${group.key}`}>
@@ -93,7 +90,6 @@ export function Team() {
                     </section>
                   </Reveal>
                 ))}
-              </div>
             </div>
           </div>
         </div>
