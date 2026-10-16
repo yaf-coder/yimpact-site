@@ -18,7 +18,6 @@ export const organizers: Organizer[] = [
     rank: 'chair',
     affiliation: "Yale '27, Computer Science",
     headshotUrl: '/headshots/eric-zou.svg',
-    bio: 'Eric builds and maintains the Expo platform — the submission pipeline, the partner field, and the tooling teams rely on through the semester.',
     email: 'engineering@yaleimpactexpo.org',
   },
   {
