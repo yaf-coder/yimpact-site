@@ -1,27 +1,35 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink-900: #0b1524;
-  --color-ink-700: #334155;
-  --color-ink-500: #64748b;
-  --color-ink-400: #94a3b8;
-  --color-ink-300: #cbd5e1;
-  --color-ink-100: #e4e9f0;
-  --color-ink-50: #f6f8fb;
+  /* The palette: Rapture's Light #F6F3E7, Milk Tooth #FAEBD7, Caramel
+     Essence #E3AF64, Sapphire Dust #516AC8, Blue Oblivion #26428B and
+     Cosmic Odyssey #0F1939. The greys are Cosmic Odyssey mixed into
+     Rapture's Light, so text and rules share the page's warmth. */
+  --color-ink-900: #0f1939;
+  --color-ink-700: #3d455c;
+  --color-ink-500: #626778;
+  --color-ink-400: #828690;
+  --color-ink-300: #b5b6b6;
+  --color-ink-100: #dad9d2;
+  --color-ink-50: #faebd7;
 
-  /* The brand red, used for the page patterns and bubble outlines. Yale navy
-     stays the accent for buttons and links. */
-  --color-brand: #e00034;
+  /* The page is Rapture's Light, not pure white. Overriding white here
+     carries it to every bg-white panel and tile, and to the light text on
+     the blue buttons. */
+  --color-white: #f6f3e7;
 
-  /* A sober shade of the same hue (346°). The rules and panel borders use it.
-     It is also the maroon in the logo. */
-  --color-bar: #7b3243;
+  /* Caramel Essence draws the page patterns. */
+  --color-brand: #e3af64;
 
-  --color-blue-900: #00224a;
-  --color-blue-700: #00356b;
-  --color-blue-500: #286dc0;
-  --color-blue-100: #dce8f7;
-  --color-blue-50: #f0f5fc;
+  /* Blue Oblivion is the rule and panel-border colour. */
+  --color-bar: #26428b;
+
+  /* Cosmic Odyssey, Blue Oblivion and Sapphire Dust, with two pale tints. */
+  --color-blue-900: #0f1939;
+  --color-blue-700: #26428b;
+  --color-blue-500: #516ac8;
+  --color-blue-100: #d6dcf1;
+  --color-blue-50: #eceef6;
 
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-serif: 'Newsreader', ui-serif, Georgia, serif;
@@ -47,7 +55,7 @@ body {
   font-size: 15px;
   line-height: 1.6;
   letter-spacing: -0.011em;
-  background-color: #ffffff;
+  background-color: var(--color-white);
   color: var(--color-ink-700);
   -webkit-font-smoothing: antialiased;
 }
@@ -111,52 +119,52 @@ body {
    scale: solid clover lobes, fat rings, stacked diamonds, punched-out
    fractals. Content floats above them in translucent panels. */
 .pattern-home {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Cg stroke='none' fill-opacity='0.16'%3E%3Ccircle cx='150' cy='88' r='54'/%3E%3Ccircle cx='150' cy='212' r='54'/%3E%3Ccircle cx='88' cy='150' r='54'/%3E%3Ccircle cx='212' cy='150' r='54'/%3E%3C/g%3E%3Ccircle cx='150' cy='150' r='24' stroke='none' fill-opacity='0.3'/%3E%3Crect x='68' y='68' width='164' height='164' transform='rotate(45 150 150)' fill='none' stroke-width='22' stroke-opacity='0.12'/%3E%3Cg stroke='none' fill-opacity='0.11'%3E%3Ccircle cx='0' cy='0' r='46'/%3E%3Ccircle cx='300' cy='0' r='46'/%3E%3Ccircle cx='0' cy='300' r='46'/%3E%3Ccircle cx='300' cy='300' r='46'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cg fill='%23E3AF64' stroke='%23E3AF64'%3E%3Cg stroke='none' fill-opacity='0.32'%3E%3Ccircle cx='150' cy='88' r='54'/%3E%3Ccircle cx='150' cy='212' r='54'/%3E%3Ccircle cx='88' cy='150' r='54'/%3E%3Ccircle cx='212' cy='150' r='54'/%3E%3C/g%3E%3Ccircle cx='150' cy='150' r='24' stroke='none' fill-opacity='0.6'/%3E%3Crect x='68' y='68' width='164' height='164' transform='rotate(45 150 150)' fill='none' stroke-width='22' stroke-opacity='0.24'/%3E%3Cg stroke='none' fill-opacity='0.22'%3E%3Ccircle cx='0' cy='0' r='46'/%3E%3Ccircle cx='300' cy='0' r='46'/%3E%3Ccircle cx='0' cy='300' r='46'/%3E%3Ccircle cx='300' cy='300' r='46'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   background-size: 300px 300px;
 }
 
 .pattern-students {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Cpath stroke='none' fill-opacity='0.15' fill-rule='evenodd' d='M130 22 L238 210 L22 210 Z M184 116 L130 210 L76 116 Z'/%3E%3Cg stroke='none' fill-opacity='0.26'%3E%3Cpath d='M157 69 L130 116 L103 69 Z'/%3E%3Cpath d='M103 163 L76 210 L49 163 Z'/%3E%3Cpath d='M211 163 L184 210 L157 163 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='%23E3AF64' stroke='%23E3AF64'%3E%3Cpath stroke='none' fill-opacity='0.3' fill-rule='evenodd' d='M130 22 L238 210 L22 210 Z M184 116 L130 210 L76 116 Z'/%3E%3Cg stroke='none' fill-opacity='0.52'%3E%3Cpath d='M157 69 L130 116 L103 69 Z'/%3E%3Cpath d='M103 163 L76 210 L49 163 Z'/%3E%3Cpath d='M211 163 L184 210 L157 163 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   background-size: 260px 260px;
 }
 
 .pattern-team {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Cg stroke='none' transform='rotate(45 120 120)'%3E%3Crect x='36' y='36' width='168' height='168' fill-opacity='0.10'/%3E%3Crect x='64' y='64' width='112' height='112' fill-opacity='0.14'/%3E%3Crect x='92' y='92' width='56' height='56' fill-opacity='0.22'/%3E%3C/g%3E%3Cg stroke='none' fill-opacity='0.13'%3E%3Ccircle cx='0' cy='0' r='26'/%3E%3Ccircle cx='240' cy='0' r='26'/%3E%3Ccircle cx='0' cy='240' r='26'/%3E%3Ccircle cx='240' cy='240' r='26'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='%23E3AF64' stroke='%23E3AF64'%3E%3Cg stroke='none' transform='rotate(45 120 120)'%3E%3Crect x='36' y='36' width='168' height='168' fill-opacity='0.2'/%3E%3Crect x='64' y='64' width='112' height='112' fill-opacity='0.28'/%3E%3Crect x='92' y='92' width='56' height='56' fill-opacity='0.44'/%3E%3C/g%3E%3Cg stroke='none' fill-opacity='0.26'%3E%3Ccircle cx='0' cy='0' r='26'/%3E%3Ccircle cx='240' cy='0' r='26'/%3E%3Ccircle cx='0' cy='240' r='26'/%3E%3Ccircle cx='240' cy='240' r='26'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   background-size: 240px 240px;
 }
 
 .pattern-schedule {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Ccircle cx='110' cy='110' r='62' fill='none' stroke-width='24' stroke-opacity='0.13'/%3E%3Crect x='80' y='80' width='60' height='60' stroke='none' fill-opacity='0.22'/%3E%3Cg fill='none' stroke-width='24' stroke-opacity='0.10'%3E%3Ccircle cx='0' cy='0' r='62'/%3E%3Ccircle cx='220' cy='0' r='62'/%3E%3Ccircle cx='0' cy='220' r='62'/%3E%3Ccircle cx='220' cy='220' r='62'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='%23E3AF64' stroke='%23E3AF64'%3E%3Ccircle cx='110' cy='110' r='62' fill='none' stroke-width='24' stroke-opacity='0.26'/%3E%3Crect x='80' y='80' width='60' height='60' stroke='none' fill-opacity='0.44'/%3E%3Cg fill='none' stroke-width='24' stroke-opacity='0.2'%3E%3Ccircle cx='0' cy='0' r='62'/%3E%3Ccircle cx='220' cy='0' r='62'/%3E%3Ccircle cx='0' cy='220' r='62'/%3E%3Ccircle cx='220' cy='220' r='62'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   background-size: 220px 220px;
 }
 
 .pattern-record {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Cg stroke='none' fill-opacity='0.09'%3E%3Ccircle cx='120' cy='120' r='84'/%3E%3Ccircle cx='0' cy='120' r='84'/%3E%3Ccircle cx='240' cy='120' r='84'/%3E%3Ccircle cx='120' cy='0' r='84'/%3E%3Ccircle cx='120' cy='240' r='84'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='%23E3AF64' stroke='%23E3AF64'%3E%3Cg stroke='none' fill-opacity='0.18'%3E%3Ccircle cx='120' cy='120' r='84'/%3E%3Ccircle cx='0' cy='120' r='84'/%3E%3Ccircle cx='240' cy='120' r='84'/%3E%3Ccircle cx='120' cy='0' r='84'/%3E%3Ccircle cx='120' cy='240' r='84'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   background-size: 240px 240px;
 }
 
 .pattern-story {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Cpath stroke='none' fill-opacity='0.13' d='M0 130 A65 65 0 0 1 130 130 A65 65 0 0 1 260 130 L260 62 L0 62 Z'/%3E%3Cpath stroke='none' fill-opacity='0.2' d='M-65 260 A65 65 0 0 1 65 260 A65 65 0 0 1 195 260 A65 65 0 0 1 325 260 L325 224 L-65 224 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='%23E3AF64' stroke='%23E3AF64'%3E%3Cpath stroke='none' fill-opacity='0.26' d='M0 130 A65 65 0 0 1 130 130 A65 65 0 0 1 260 130 L260 62 L0 62 Z'/%3E%3Cpath stroke='none' fill-opacity='0.4' d='M-65 260 A65 65 0 0 1 65 260 A65 65 0 0 1 195 260 A65 65 0 0 1 325 260 L325 224 L-65 224 Z'/%3E%3C/g%3E%3C/svg%3E");
   background-size: 260px 260px;
 }
 
 .pattern-partner {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Cg fill='none' stroke-width='26'%3E%3Ccircle cx='130' cy='130' r='112' stroke-opacity='0.09'/%3E%3Ccircle cx='130' cy='130' r='72' stroke-opacity='0.13'/%3E%3C/g%3E%3Ccircle cx='130' cy='130' r='26' stroke='none' fill-opacity='0.24'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='%23E3AF64' stroke='%23E3AF64'%3E%3Cg fill='none' stroke-width='26'%3E%3Ccircle cx='130' cy='130' r='112' stroke-opacity='0.18'/%3E%3Ccircle cx='130' cy='130' r='72' stroke-opacity='0.26'/%3E%3C/g%3E%3Ccircle cx='130' cy='130' r='26' stroke='none' fill-opacity='0.48'/%3E%3C/g%3E%3C/svg%3E");
   background-size: 260px 260px;
 }
 
 .pattern-login {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Cg stroke='none'%3E%3Crect x='18' y='18' width='184' height='184' fill-opacity='0.09'/%3E%3Crect x='50' y='50' width='120' height='120' fill-opacity='0.13'/%3E%3Crect x='82' y='82' width='56' height='56' fill-opacity='0.22'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='%23E3AF64' stroke='%23E3AF64'%3E%3Cg stroke='none'%3E%3Crect x='18' y='18' width='184' height='184' fill-opacity='0.18'/%3E%3Crect x='50' y='50' width='120' height='120' fill-opacity='0.26'/%3E%3Crect x='82' y='82' width='56' height='56' fill-opacity='0.44'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   background-size: 220px 220px;
 }
 
 .pattern-notfound {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Cg stroke='none' fill-opacity='0.15'%3E%3Cpath d='M62 26 L120 132 L4 132 Z'/%3E%3Cpath d='M196 96 L250 190 L142 190 Z'/%3E%3C/g%3E%3Cpath stroke='none' fill-opacity='0.24' d='M120 160 L168 244 L72 244 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='%23E3AF64' stroke='%23E3AF64'%3E%3Cg stroke='none' fill-opacity='0.3'%3E%3Cpath d='M62 26 L120 132 L4 132 Z'/%3E%3Cpath d='M196 96 L250 190 L142 190 Z'/%3E%3C/g%3E%3Cpath stroke='none' fill-opacity='0.48' d='M120 160 L168 244 L72 244 Z'/%3E%3C/g%3E%3C/svg%3E");
   background-size: 260px 260px;
 }
 
 .pattern-alumni {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='%23e00034' stroke='none'%3E%3Crect x='24' y='168' width='192' height='44' fill-opacity='0.10'/%3E%3Crect x='60' y='124' width='120' height='44' fill-opacity='0.15'/%3E%3Crect x='96' y='80' width='48' height='44' fill-opacity='0.22'/%3E%3Ccircle cx='120' cy='46' r='20' fill-opacity='0.17'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='%23E3AF64' stroke='none'%3E%3Crect x='24' y='168' width='192' height='44' fill-opacity='0.2'/%3E%3Crect x='60' y='124' width='120' height='44' fill-opacity='0.3'/%3E%3Crect x='96' y='80' width='48' height='44' fill-opacity='0.44'/%3E%3Ccircle cx='120' cy='46' r='20' fill-opacity='0.34'/%3E%3C/g%3E%3C/svg%3E");
   background-size: 240px 240px;
 }
 
@@ -169,10 +177,10 @@ body {
 /* Text and controls sit on these: translucent, blurred, heavily rounded.
    48px on a laptop, easing down on smaller screens. */
 .haze {
-  background-color: rgb(255 255 255 / 0.68);
+  background-color: rgb(246 243 231 / 0.68);
   -webkit-backdrop-filter: blur(22px) saturate(1.4);
   backdrop-filter: blur(22px) saturate(1.4);
-  border: 1px solid rgb(123 50 67 / 0.3);
+  border: 1px solid rgb(38 66 139 / 0.3);
   border-radius: var(--radius-haze);
 }
 
