@@ -14,6 +14,17 @@ export interface SignUpFields {
   school: string;
   program: string;
   gradYear: string;
+  bio: string;
+  resume: File;
+}
+
+export interface SignUpResult {
+  error: string | null;
+  // True when the project asks for email confirmation. Then signup gives no
+  // session, and the resume upload waits for the first sign-in.
+  needsConfirmation: boolean;
+  // The account exists, but the resume did not upload.
+  resumeError: string | null;
 }
 
 export interface AuthValue {
@@ -31,10 +42,12 @@ export interface AuthValue {
     email: string,
     password: string,
     fields: SignUpFields,
-  ): Promise<{ error: string | null }>;
+  ): Promise<SignUpResult>;
   signOut(): Promise<void>;
   saveProfile(edit: ProfileEdit): Promise<{ error: string | null }>;
   refreshProfile(): Promise<void>;
+  // Send a rejected application again. The status goes back to pending.
+  resubmitApplication(): Promise<{ error: string | null }>;
 }
 
 export const AuthContext = createContext<AuthValue | null>(null);

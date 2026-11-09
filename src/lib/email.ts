@@ -15,4 +15,4 @@ export function hasAllowedDomain(email: string): boolean {
   );
 }
 
-export const allowedDomainMessage = 'Use your Yale email address to register.';
+export const allowedDomainMessage = 'Use your Yale email address to apply.';
