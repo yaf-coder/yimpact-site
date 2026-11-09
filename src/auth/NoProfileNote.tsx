@@ -19,7 +19,7 @@ export function NoProfileNote() {
         <div className="haze px-5 py-8 sm:px-7 md:px-10 md:py-12">
           <ErrorNote title="No profile">
             This account has no profile record, so the portal cannot open. The account was probably
-            made before the database was set up. Write to the team, or register again with a new
+            made before the database was set up. Write to the team, or apply again with a new
             address.
           </ErrorNote>
           <p className="mt-4 font-mono text-xs text-ink-400">{session?.user.email}</p>

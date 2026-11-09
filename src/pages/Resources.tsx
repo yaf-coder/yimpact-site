@@ -67,7 +67,7 @@ export function Resources() {
             What our partners put on the <span className="accent-serif">table</span>
           </>
         }
-        meta="Every reader can see what is on offer. Registered students see the contact details, the booking links, and the codes behind each one."
+        meta="Every reader can see what is on offer. Approved students see the contact details, the booking links, and the codes behind each one."
       />
 
       {tabs.length > 0 ? (
@@ -102,9 +102,9 @@ export function Resources() {
         <div className="haze px-5 py-8 sm:px-7 md:px-10 md:py-12">
           {authStatus === 'signedIn' && !isApprovedMember ? (
             <div className="mb-8 border-l-2 border-bar/45 bg-ink-50/70 p-4">
-              <p className="label text-ink-900">Pending approval</p>
+              <p className="label text-ink-900">Not approved yet</p>
               <p className="mt-2 max-w-[62ch] text-sm leading-[1.6] text-ink-700">
-                The team reviews your registration. The access details open as soon as they approve it.
+                The team reviews your application. The access details open as soon as they approve it. Check your status in the portal.
               </p>
             </div>
           ) : null}
@@ -142,16 +142,16 @@ export function Resources() {
 
           <div className="mt-16 border-t border-bar/25 pt-8">
             <h2 className="display-2 max-w-[20ch]">
-              Students: register to unlock the <span className="accent-serif">details</span>
+              Students: apply to unlock the <span className="accent-serif">details</span>
             </h2>
             <p className="mt-4 max-w-[62ch] text-base leading-[1.6] text-ink-700">
-              Registration is free and open to every Yale student. Partners who want to add a resource
+              Applications are free and open to every Yale student. Partners who want to add a resource
               to this page can write to us.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               {authStatus === 'signedIn' ? null : (
                 <Link to="/signup" className={buttonClassNames('primary')}>
-                  Register
+                  Apply
                 </Link>
               )}
               <a href={`mailto:${event.sponsorEmail}`} className={buttonClassNames('secondary')}>

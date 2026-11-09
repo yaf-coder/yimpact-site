@@ -101,7 +101,7 @@ export function Login() {
                   to="/signup"
                   className="border-b border-bar/45 pb-0.5 text-ink-900 transition-colors duration-300 ease-out hover:border-bar focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500"
                 >
-                  Register with your Yale email
+                  Apply with your Yale email
                 </Link>
                 .
               </p>
@@ -111,7 +111,7 @@ export function Login() {
               <p className="label text-ink-400">02</p>
               <h2 className="display-3 mt-4">Partners and mentors</h2>
               <p className="mt-4 text-sm leading-[1.6] text-ink-500">
-                Partners do not register here. The team makes your account and sends the details. Then
+                Partners do not apply here. The team makes your account and sends the details. Then
                 sign in with the form on the left.
               </p>
               <p className="mt-4 text-sm leading-[1.6] text-ink-500">

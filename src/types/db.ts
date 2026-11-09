@@ -17,12 +17,14 @@ export interface ProfileRow {
   linkedin_url: string | null;
   portfolio_url: string | null;
   org_slug: string | null;
+  resume_path: string | null;
+  submitted_at: string | null;
   approved_at: string | null;
   created_at: string;
 }
 
-// The fields a student can change. The column grant in migration 0001 allows
-// these and no others.
+// The fields a student can change. The column grants in migrations 0001 and
+// 0015 allow these and no others.
 export interface ProfileEdit {
   full_name: string;
   school: string | null;
@@ -31,6 +33,26 @@ export interface ProfileEdit {
   bio: string | null;
   linkedin_url: string | null;
   portfolio_url: string | null;
+  resume_path?: string;
+}
+
+// A snapshot of an application at the time of a decision. Only an admin
+// reads these rows. Refer to migration 0015.
+export interface ApplicationDecisionRow {
+  id: string;
+  profile_id: string;
+  decision: 'approved' | 'rejected';
+  submitted_at: string | null;
+  decided_at: string;
+  decided_by: string | null;
+  full_name: string;
+  school: string | null;
+  program: string | null;
+  grad_year: number | null;
+  bio: string | null;
+  linkedin_url: string | null;
+  portfolio_url: string | null;
+  resume_path: string | null;
 }
 
 export type ResourceKind =
