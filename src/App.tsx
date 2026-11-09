@@ -15,6 +15,7 @@ import { Blog } from './pages/Blog';
 import { BlogPostPage } from './pages/BlogPost';
 import { Login } from './pages/Login';
 import { Signup } from './pages/Signup';
+import { ResetPassword } from './pages/ResetPassword';
 import { NotFound } from './pages/NotFound';
 import { PortalIndex } from './pages/portal/PortalIndex';
 import { StudentProfile } from './pages/portal/StudentProfile';
@@ -45,6 +46,7 @@ export function App() {
           <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
           <Route element={<RequireAuth />}>
             <Route path="/portal" element={<PortalIndex />} />

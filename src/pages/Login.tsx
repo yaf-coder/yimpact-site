@@ -88,6 +88,15 @@ export function Login() {
                   )}
                 </Field>
 
+                <p className="text-sm leading-[1.6] text-ink-500">
+                  <Link
+                    to="/reset-password"
+                    className="border-b border-bar/45 pb-0.5 text-ink-900 transition-colors duration-300 ease-out hover:border-bar focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500"
+                  >
+                    Forgot your password?
+                  </Link>
+                </p>
+
                 {state.error ? <ErrorNote>{state.error}</ErrorNote> : null}
 
                 <Button type="submit" isDisabled={isPending} className="w-full">
