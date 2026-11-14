@@ -189,6 +189,63 @@ body {
   border-radius: var(--radius-inner);
 }
 
+/* The homepage title. The one place the classical serif appears: the Yale
+   wordmark sits in it, so the type around it follows its lead. */
+.hero-title {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(3rem, 6.4vw, 5.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  color: var(--color-ink-900);
+}
+
+.hero-title > span {
+  display: block;
+}
+
+.hero-title .hero-the {
+  font-weight: 500;
+  font-size: 0.74em;
+}
+
+.hero-title img {
+  display: inline;
+  height: 0.92em;
+  width: auto;
+  vertical-align: baseline;
+  margin-left: 0.12em;
+}
+
+/* The lit globe's stage: a faint Caramel glow behind it, and a fade at the
+   top and foot so its shafts of light never stop at a hard edge. On wide
+   screens the globe sits right of centre and the right edge fades too. */
+.lit-globe {
+  background: radial-gradient(closest-side, rgb(227 175 100 / 0.22), rgb(227 175 100 / 0));
+}
+
+.lit-globe canvas {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent);
+}
+
+@media (min-width: 768px) {
+  .lit-globe {
+    background: radial-gradient(circle at 70% 50%, rgb(227 175 100 / 0.22), rgb(227 175 100 / 0) 38%);
+  }
+
+  .lit-globe canvas {
+    -webkit-mask-image:
+      linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent),
+      linear-gradient(to left, transparent, #000 5%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent),
+      linear-gradient(to left, transparent, #000 5%);
+    mask-composite: intersect;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

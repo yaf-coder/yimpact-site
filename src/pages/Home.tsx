@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import { Layout } from '../components/layout/Layout';
 import { Section } from '../components/ui/Section';
-import { Reveal } from '../components/ui/Reveal';
+import { LitGlobe } from '../components/globe/LitGlobe';
+import { asset } from '../lib/asset';
 import { buttonClassNames } from '../components/ui/Button';
 import { EventDetailsBlock } from '../components/EventDetailsBlock';
 import { SponsorLogoGrid } from '../components/SponsorLogoGrid';
@@ -21,17 +22,6 @@ import type { OrganizerRank } from '../types/content';
 const inlineLink =
   'label text-ink-500 transition-colors duration-300 ease-out hover:text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500';
 
-// The display line sets the last word of the name in the light serif.
-function SerifTail({ text }: { text: string }) {
-  const words = text.trim().split(' ');
-  const tail = words.pop() ?? '';
-  return (
-    <>
-      {words.join(' ')} <span className="accent-serif">{tail}</span>
-    </>
-  );
-}
-
 export function Home() {
   // Partners live in the database now. Show featured ones first.
   const { sponsors } = useSponsors();
@@ -47,32 +37,43 @@ export function Home() {
 
   return (
     <Layout pattern="home" title="Yale Impact Expo" description={event.tagline}>
-      {/* The title screen keeps its air. Everything below it runs tighter. */}
+      {/* The title screen. On wide screens the copy sits on the left and the
+          lit globe on the right, its light spilling back behind the copy. On
+          narrow screens the globe is centred and draws the title around
+          itself, so the heading below is kept for screen readers only. */}
       <div className="mx-auto max-w-[1200px] px-4 pb-6 pt-6 sm:px-6 md:px-10 md:pb-10 md:pt-12">
-        <div className="haze px-5 py-12 sm:px-7 md:px-12 md:py-20">
-        <Reveal>
-          <p className="label text-ink-400">
-            {event.dateLabel}
-            <span className="px-2 text-ink-300">—</span>
-            {event.venueAddress}
-          </p>
-          <h1 className="display-1 mt-8 max-w-[13ch]">
-            <SerifTail text={event.name} />
-          </h1>
-          <p className="mt-8 max-w-[54ch] text-lg leading-[1.5] tracking-[-0.02em] text-ink-700">{event.tagline}</p>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <Link to="/students" className={buttonClassNames('primary')}>
-              For students
-            </Link>
-            <a href={`mailto:${event.sponsorEmail}`} className={buttonClassNames('secondary')}>
-              For sponsors
-            </a>
+        <div className="haze overflow-hidden px-5 py-8 sm:px-7 md:px-12 md:py-6">
+          <div className="flex flex-col items-center gap-4 text-center md:grid md:grid-cols-1 md:items-stretch md:text-left">
+            <div className="contents md:relative md:z-10 md:col-start-1 md:row-start-1 md:flex md:w-[42%] md:flex-col md:items-start md:justify-center md:gap-6 md:self-center md:py-10">
+              <p className="label text-ink-400">
+                {event.dateLabel}
+                <span className="px-2 text-ink-300">—</span>
+                {event.venueAddress}
+              </p>
+              <h1 className="hero-title max-md:sr-only">
+                <span className="hero-the">
+                  The <img src={asset('/brand/yale-wordmark.png')} alt="Yale" width={900} height={388} />
+                </span>
+                <span>Impact Expo</span>
+              </h1>
+              <p className="order-2 max-w-[54ch] text-lg leading-[1.5] tracking-[-0.02em] text-ink-700 md:order-none">
+                {event.tagline}
+              </p>
+              <div className="order-3 flex flex-wrap justify-center gap-3 md:order-none md:justify-start">
+                <Link to="/students" className={buttonClassNames('primary')}>
+                  For students
+                </Link>
+                <a href={`mailto:${event.sponsorEmail}`} className={buttonClassNames('secondary')}>
+                  For sponsors
+                </a>
+              </div>
+              <p className="order-4 max-w-[54ch] text-sm leading-[1.55] text-ink-400 md:order-none">
+                Students: watch the walkthrough and bring a problem worth a semester. Sponsors: write to us and we will
+                send the partner brief for your domain.
+              </p>
+            </div>
+            <LitGlobe className="order-1 h-[min(74svh,740px)] w-full md:order-none md:col-start-1 md:row-start-1 md:h-auto md:min-h-[min(74svh,680px)]" />
           </div>
-          <p className="mt-5 max-w-[54ch] text-sm leading-[1.55] text-ink-400">
-            Students: watch the walkthrough and bring a problem worth a semester. Sponsors: write to us and we will
-            send the partner brief for your domain.
-          </p>
-        </Reveal>
         </div>
       </div>
 
