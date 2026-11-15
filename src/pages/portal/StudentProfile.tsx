@@ -42,18 +42,13 @@ export function StudentProfile() {
 
   return (
     <Layout
-      pattern="students"
       title="Profile · Yale Impact Expo"
       description="Edit your Yale Impact Expo student profile."
     >
       <PortalNav />
-      <PageHeader
-        eyebrow="Portal"
-        title="Your profile"
-        meta="The team reads this when they match teams, mentors, and partner introductions. You can change it at any time."
-      />
+      <PageHeader title="Your profile" lede="The team uses this to match teams, mentors and partners." />
 
-      <div className="mx-auto max-w-[1200px] px-6 pb-8 md:px-10">
+      <div className="wrap pt-8">
         {isApprovedMember ? (
           <div className="flex flex-wrap items-center gap-3">
             <Badge>Approved</Badge>
@@ -73,7 +68,7 @@ export function StudentProfile() {
       </div>
 
       <form action={submit} key={state.savedAt}>
-        <Section index="01" eyebrow="School">
+        <Section className="mt-8">
           <div className="grid max-w-[620px] gap-5">
             <Field label="Full name">
               {({ id }) => (
@@ -115,7 +110,7 @@ export function StudentProfile() {
           </div>
         </Section>
 
-        <Section index="02" eyebrow="Profile">
+        <Section>
           <div className="grid max-w-[620px] gap-5">
             <Field
               label="About you"

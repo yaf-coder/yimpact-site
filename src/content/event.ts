@@ -7,9 +7,9 @@ export const event: EventDetails = {
   name: 'Yale Impact Expo',
   shortName: 'Impact Expo',
   tagline:
-    'A semester-long social impact incubator where Yale students spend a term on a problem worth solving — and put the result in the hands of the communities, agencies, and institutions who can act on it.',
+    'A semester-long incubator where Yale students work on a real public problem and hand the result to the people who can act on it.',
   mission:
-    'We believe the best thinking on this campus should end up somewhere it does good. The Expo exists to point student ambition at real public problems, to hold that work to an evidence standard the people it affects would recognise, and to see it through to something that actually lands.',
+    'Students pick a public problem, research it with faculty and partners, and build something: a tool, a study, a policy memo, a venture or a pilot plan.',
   dateLabel: 'Kickoff autumn 2026 · Expo weekend spring 2027',
   expoSeason: 'spring 2027',
   startsAt: '2027-04-16T17:00:00-04:00',

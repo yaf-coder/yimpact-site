@@ -17,7 +17,7 @@ const links: PortalLink[] = [
   { to: '/portal/admin/announcements', label: 'Post', roles: ['admin', 'announcements'] },
 ];
 
-// A ruled strip under the header, in the pattern of DomainNav.
+// A row of portal tabs under the header, with the account and a way out.
 export function PortalNav() {
   const { role, profile, signOut } = useAuth();
   const navigate = useNavigate();
@@ -29,8 +29,8 @@ export function PortalNav() {
   }
 
   return (
-    <div className="sticky top-[var(--header-h)] z-30 border-y border-bar/25 bg-white/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-[1200px] items-center gap-6 px-6 md:px-10">
+    <div className="border-b border-line">
+      <div className="wrap flex items-center gap-6">
         <nav aria-label="Portal" className="min-w-0 flex-1">
           <ul className="flex overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {visible.map((link) => (
@@ -39,10 +39,8 @@ export function PortalNav() {
                   to={link.to}
                   end={link.to === '/portal/admin'}
                   className={({ isActive }) =>
-                    `label block border-b-2 px-4 py-3.5 transition-colors duration-300 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-blue-500 ${
-                      isActive
-                        ? 'border-bar text-ink-900'
-                        : 'border-transparent text-ink-400 hover:text-ink-900'
+                    `-mb-px block border-b-2 px-3.5 py-3 text-sm font-medium transition-colors duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-blue-700 ${
+                      isActive ? 'border-blue-700 text-ink-900' : 'border-transparent text-ink-500 hover:text-ink-900'
                     }`
                   }
                 >
@@ -53,14 +51,14 @@ export function PortalNav() {
           </ul>
         </nav>
 
-        <div className="flex shrink-0 items-center gap-4">
-          <p className="label hidden text-ink-300 sm:block">{profile?.email}</p>
+        <div className="flex shrink-0 items-center gap-4 text-sm">
+          <p className="hidden text-ink-400 sm:block">{profile?.email}</p>
           <button
             type="button"
             onClick={handleSignOut}
-            className="label py-3.5 text-ink-400 transition-colors duration-300 ease-out hover:text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+            className="py-3 text-ink-500 underline-offset-[3px] hover:text-ink-900 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
           >
-            Sign out
+            Log out
           </button>
         </div>
       </div>

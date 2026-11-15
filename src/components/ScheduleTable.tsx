@@ -2,6 +2,7 @@ import type { ScheduleItem } from '../types/content';
 
 interface ScheduleTableProps {
   items: ScheduleItem[];
+  caption?: string;
 }
 
 const timeFormatter = new Intl.DateTimeFormat('en-US', {
@@ -13,46 +14,43 @@ function formatTime(iso: string): string {
   return timeFormatter.format(new Date(iso));
 }
 
-export function ScheduleTable({ items }: ScheduleTableProps) {
+export function ScheduleTable({ items, caption = 'The Saturday agenda for the Yale Impact Expo' }: ScheduleTableProps) {
   const sortedItems = [...items].sort((a, b) => a.startsAt.localeCompare(b.startsAt));
 
   return (
     <div className="overflow-x-auto">
       <table className="w-full min-w-[640px] border-collapse text-left">
-        <caption className="sr-only">The Saturday agenda for the Yale Impact Expo</caption>
+        <caption className="sr-only">{caption}</caption>
         <thead>
-          <tr className="border-y border-bar/25">
-            <th scope="col" className="label py-3 pr-6 font-medium text-ink-400">
+          <tr className="border-y border-line text-sm text-ink-400">
+            <th scope="col" className="py-2.5 pr-5 font-normal">
               Time
             </th>
-            <th scope="col" className="label py-3 pr-6 font-medium text-ink-400">
+            <th scope="col" className="py-2.5 pr-5 font-normal">
               Session
             </th>
-            <th scope="col" className="label py-3 pr-6 font-medium text-ink-400">
+            <th scope="col" className="py-2.5 pr-5 font-normal">
               Track
             </th>
-            <th scope="col" className="label py-3 font-medium text-ink-400">
-              Location
+            <th scope="col" className="py-2.5 font-normal">
+              Room
             </th>
           </tr>
         </thead>
         <tbody>
           {sortedItems.map((item) => (
-            <tr
-              key={item.id}
-              className="border-b border-bar/25 align-top transition-colors duration-300 ease-out hover:bg-ink-50"
-            >
-              <td className="whitespace-nowrap py-4 pr-6 font-mono text-xs tracking-[0.02em] text-ink-500">
+            <tr key={item.id} className="border-b border-line align-top">
+              <td className="whitespace-nowrap py-4 pr-5 text-sm tabular-nums text-ink-500">
                 {formatTime(item.startsAt)}–{formatTime(item.endsAt)}
               </td>
-              <td className="py-4 pr-6">
-                <p className="text-base font-medium leading-[1.25] tracking-[-0.028em] text-ink-900">{item.title}</p>
+              <td className="py-4 pr-5">
+                <p className="text-[15px] font-medium">{item.title}</p>
                 {item.description ? (
-                  <p className="mt-1.5 max-w-[62ch] text-sm leading-[1.65] text-ink-500">{item.description}</p>
+                  <p className="mt-1 max-w-[60ch] text-[15px] leading-[1.55] text-ink-500">{item.description}</p>
                 ) : null}
               </td>
-              <td className="label py-4 pr-6 text-ink-500">{item.track ?? '—'}</td>
-              <td className="label py-4 text-ink-500">{item.location ?? '—'}</td>
+              <td className="py-4 pr-5 text-sm text-ink-500">{item.track ?? ''}</td>
+              <td className="py-4 text-sm text-ink-500">{item.location ?? ''}</td>
             </tr>
           ))}
         </tbody>

@@ -74,23 +74,23 @@ export function AddSponsorDialog({ placement, onImpactChange, onClose, onAdd }: 
         role="dialog"
         aria-modal="true"
         aria-labelledby="add-sponsor-heading"
-        className="haze-inner w-full max-w-[440px] overflow-hidden border border-bar/45 bg-white"
+        className="w-full max-w-[440px] overflow-hidden rounded-lg border border-line-strong bg-white"
       >
-        <div className="flex items-center justify-between border-b border-bar/25 px-5 py-4">
+        <div className="flex items-center justify-between border-b border-line px-5 py-4">
           <h2 id="add-sponsor-heading" className="label text-ink-900">
             Add a partner
           </h2>
           <button
             type="button"
             onClick={onClose}
-            className="label text-ink-400 transition-colors duration-300 ease-out hover:text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+            className="label text-ink-400 transition-colors duration-300 ease-out hover:text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
           >
             Close
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4 p-5">
-          <div className="border border-bar/25 bg-ink-50 px-4 py-3">
+          <div className="border border-line bg-ink-50 px-4 py-3">
             <p className="label text-ink-400">Dropped in</p>
             <p className="mt-1 text-sm font-medium tracking-[-0.025em] text-ink-900">
               {domainLabels[placement.domain]}
@@ -109,16 +109,16 @@ export function AddSponsorDialog({ placement, onImpactChange, onClose, onAdd }: 
               type="text"
               value={name}
               onChange={(changeEvent) => setName(changeEvent.target.value)}
-              className="mt-2 w-full border border-bar/45 px-3 py-2.5 text-sm text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-500"
+              className="mt-2 w-full rounded-md border border-line-strong px-3 py-2.5 text-sm text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-700"
             />
           </div>
 
           <div>
             <div className="flex items-baseline justify-between gap-3">
               <label htmlFor="sponsor-impact" className="label block text-ink-400">
-                Impact — bubble size
+                Bubble size
               </label>
-              <span className="label text-blue-500">{impact}</span>
+              <span className="label text-ink-500">{impact}</span>
             </div>
             <input
               id="sponsor-impact"
@@ -147,7 +147,7 @@ export function AddSponsorDialog({ placement, onImpactChange, onClose, onAdd }: 
               ref={fileRef}
               type="file"
               accept="image/svg+xml,image/png,image/jpeg,image/webp"
-              className="mt-2 w-full border border-bar/45 px-3 py-2.5 text-sm text-ink-700 file:mr-3 file:border-0 file:bg-ink-100 file:px-3 file:py-1.5 file:text-xs file:text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-500"
+              className="mt-2 w-full rounded-md border border-line-strong px-3 py-2.5 text-sm text-ink-700 file:mr-3 file:border-0 file:bg-ink-100 file:px-3 file:py-1.5 file:text-xs file:text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-700"
             />
             <p className="mt-1.5 text-xs text-ink-400">SVG or PNG, under 400 KB. Square logos sit best in a bubble.</p>
           </div>
@@ -162,12 +162,12 @@ export function AddSponsorDialog({ placement, onImpactChange, onClose, onAdd }: 
               value={websiteUrl}
               placeholder="https://"
               onChange={(changeEvent) => setWebsiteUrl(changeEvent.target.value)}
-              className="mt-2 w-full border border-bar/45 px-3 py-2.5 text-sm text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-500"
+              className="mt-2 w-full rounded-md border border-line-strong px-3 py-2.5 text-sm text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-700"
             />
           </div>
 
           {error ? (
-            <p role="alert" className="border border-bar/45 bg-ink-50 px-3 py-2 text-xs text-ink-900">
+            <p role="alert" className="border border-line-strong bg-ink-50 px-3 py-2 text-xs text-ink-900">
               {error}
             </p>
           ) : null}
@@ -180,14 +180,14 @@ export function AddSponsorDialog({ placement, onImpactChange, onClose, onAdd }: 
             <button
               type="submit"
               disabled={isSaving}
-              className="label flex-1 bg-blue-700 px-5 py-3 text-white transition-colors duration-300 ease-out hover:bg-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 disabled:cursor-not-allowed disabled:bg-bar/25 disabled:text-ink-500"
+              className="flex-1 rounded-[4px] bg-blue-700 px-5 py-3 text-sm font-medium text-white transition-colors duration-300 ease-out hover:bg-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 disabled:cursor-not-allowed disabled:bg-bar/25 disabled:text-ink-500"
             >
               {isSaving ? 'Adding' : 'Add partner'}
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="label border border-bar/45 px-5 py-3 text-ink-900 transition-colors duration-300 ease-out hover:border-bar focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+              className="rounded-[4px] border border-line-strong px-5 py-3 text-sm font-medium text-ink-900 transition-colors duration-300 ease-out hover:border-bar focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
             >
               Cancel
             </button>

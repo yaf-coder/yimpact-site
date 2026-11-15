@@ -29,23 +29,18 @@ export function AdminThread() {
 
   return (
     <Layout
-      pattern="team"
       title="Inbox · Yale Impact Expo"
       description="Every conversation with a student or a partner."
     >
       <PortalNav />
-      <PageHeader
-        eyebrow="Admin"
-        title="Inbox"
-        meta="Every student and partner writes to one shared queue. Open a conversation to answer it."
-      />
+      <PageHeader title="Inbox" />
 
-      <div className="mx-auto max-w-[1200px] px-4 pb-8 sm:px-6 md:px-10">
-        <div className="haze px-5 py-8 sm:px-7 md:px-10 md:py-12">
+      <div className="wrap pb-20 pt-10">
+        <div>
           <div className="grid gap-8 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-10">
             <aside aria-labelledby="inbox-heading" className="lg:sticky lg:top-32 lg:self-start">
-              <div className="border border-bar/25">
-                <div className="border-b border-bar/25 bg-ink-50/70 px-4 py-3">
+              <div className="border border-line">
+                <div className="border-b border-line bg-ink-50 px-4 py-3">
                   <h2 id="inbox-heading" className="label text-ink-900">
                     Conversations
                   </h2>
@@ -73,19 +68,19 @@ export function AdminThread() {
                   {entries.map((entry) => {
                     const isOpen = entry.id === conversationId;
                     return (
-                      <li key={entry.id} className="border-b border-bar/25 last:border-b-0">
+                      <li key={entry.id} className="border-b border-line last:border-b-0">
                         <Link
                           to={`/portal/admin/messages/${entry.id}`}
                           aria-current={isOpen ? 'true' : undefined}
-                          className={`block p-4 transition-colors duration-300 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-blue-500 ${
-                            isOpen ? 'bg-ink-50/70' : 'hover:bg-ink-50/70'
+                          className={`block p-4 transition-colors duration-300 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-blue-700 ${
+                            isOpen ? 'bg-ink-50' : 'hover:bg-ink-50'
                           }`}
                         >
                           <p className="text-sm font-medium leading-[1.3] tracking-[-0.025em] text-ink-900">
                             {entry.memberName}
                           </p>
-                          <p className="label mt-1 text-blue-500">{entry.memberRole}</p>
-                          <p className="mt-1 font-mono text-[11px] text-ink-400">
+                          <p className="mt-0.5 text-sm text-ink-500">{entry.memberRole}</p>
+                          <p className="mt-1 text-[13px] text-ink-400">
                             {dateFormatter.format(new Date(entry.last_message_at))}
                           </p>
                         </Link>
@@ -101,7 +96,7 @@ export function AdminThread() {
                 <EmptyNote>Select a conversation on the left.</EmptyNote>
               ) : (
                 <>
-                  <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-bar/25 pb-3">
+                  <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-line pb-3">
                     <h2 className="display-3">{open?.memberName ?? 'Conversation'}</h2>
                     <p className="label text-ink-400">{open?.memberEmail}</p>
                   </div>

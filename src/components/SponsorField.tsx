@@ -40,9 +40,9 @@ const ROW_GAP = 40;
 const MIN_COLUMN = 82;
 // Preferred column counts, widest first. Nine across, then a clean 3x3.
 const LAYOUTS = [9, 3, 2, 1];
-// Mono advance (~0.6em) plus tracking plus a safety margin, so the longest
+// The average advance of a sans letter plus a safety margin, so the longest
 // domain name never reaches the edge of its column.
-const CHAR_EM = 0.78;
+const CHAR_EM = 0.62;
 const LONGEST_LABEL = Math.max(...Object.values(domainLabels).map((label) => label.length));
 const MIN_D = 40;
 const MAX_D = 132;
@@ -112,8 +112,7 @@ export function SponsorField({
   // The heading is sized to its column so that the longest domain name fits on
   // one line. A narrower window simply compresses the whole field.
   const headingFont =
-    columnWidth > 0 ? Math.max(6.5, Math.min(11, (columnWidth - 6) / (LONGEST_LABEL * CHAR_EM))) : 10;
-  const headingTracking = '0.06em';
+    columnWidth > 0 ? Math.max(6.5, Math.min(12.5, (columnWidth - 6) / (LONGEST_LABEL * CHAR_EM))) : 10;
 
   // Each domain owns one cell. Within it, bubbles are stacked strictly by
   // impact, so a bubble higher than another is always the larger of the two.
@@ -413,16 +412,10 @@ export function SponsorField({
                 className="absolute px-0.5"
               >
                 <p
-                  style={{ fontSize: `${headingFont}px`, letterSpacing: headingTracking }}
-                  className="whitespace-nowrap border-b border-bar/25 pb-2 text-center font-mono font-medium uppercase leading-[1.4] text-ink-900"
+                  style={{ fontSize: `${headingFont}px` }}
+                  className="whitespace-nowrap border-b border-line pb-2 text-center font-medium leading-[1.4] text-ink-500"
                 >
                   {domainLabels[column.domain]}
-                </p>
-                <p
-                  style={{ fontSize: `${Math.max(6.5, headingFont - 0.5)}px` }}
-                  className="mt-1 text-center font-mono text-ink-300"
-                >
-                  {column.items.filter((i) => !i.isFiller).length}
                 </p>
               </div>
             ))
@@ -462,7 +455,7 @@ export function SponsorField({
                 <Link
                   to={item.to}
                   title={item.name}
-                  className="flex h-full w-full items-center justify-center rounded-full border-2 border-bar bg-white transition-colors duration-300 ease-out hover:border-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                  className="flex h-full w-full items-center justify-center rounded-full border-2 border-bar bg-white transition-colors duration-300 ease-out hover:border-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
                 >
                   {inner}
                   <span className="sr-only">{item.name}</span>
@@ -471,7 +464,7 @@ export function SponsorField({
                 <div
                   aria-hidden="true"
                   className={`flex h-full w-full items-center justify-center rounded-full ${
-                    item.isFiller ? 'border border-dashed border-bar/40 bg-white/60' : 'border-2 border-bar bg-white'
+                    item.isFiller ? 'border border-dashed border-line-strong' : 'border-2 border-bar bg-white'
                   }`}
                 >
                   {inner}

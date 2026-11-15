@@ -101,20 +101,15 @@ export function AnnouncementForm() {
 
   return (
     <Layout
-      pattern="record"
       title="Post a story · Yale Impact Expo"
       description="Publish a story to the Yale Impact Expo blog."
     >
       <PortalNav />
-      <PageHeader
-        eyebrow="Newsroom"
-        title="Post a story"
-        meta="The story appears on the blog straight away. Leave a blank line between paragraphs."
-      />
+      <PageHeader title="Post a story" lede="It appears on The Impact Record straight away." />
 
-      <div className="mx-auto max-w-[1200px] px-4 pb-8 sm:px-6 md:px-10">
-        <div className="haze px-5 py-8 sm:px-7 md:px-10 md:py-12">
-          <form action={submit} className="max-w-[680px] border border-bar/25 p-6">
+      <div className="wrap pb-20 pt-10">
+        <div>
+          <form action={submit} className="max-w-[680px] rounded-lg border border-line-strong p-[26px]">
             <div className="grid gap-5">
               <Field label="Title">
                 {({ id }) => <Input id={id} name="title" required />}
@@ -153,7 +148,7 @@ export function AnnouncementForm() {
                     type="file"
                     accept={allowedTypes.join(',')}
                     aria-describedby={describedBy}
-                    className="w-full border border-bar/45 bg-white p-2.5 text-sm text-ink-700 file:mr-3 file:border file:border-bar/45 file:bg-ink-50/70 file:px-3 file:py-1.5 file:text-xs file:text-ink-900 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
+                    className="w-full rounded-md border border-line-strong bg-[#fffdf8] p-2.5 text-sm text-ink-700 file:mr-3 file:border file:border-line-strong file:bg-ink-50 file:px-3 file:py-1.5 file:text-xs file:text-ink-900 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-blue-700"
                   />
                 )}
               </Field>

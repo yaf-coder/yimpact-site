@@ -3,16 +3,16 @@ import type { ButtonHTMLAttributes, MouseEvent, ReactNode } from 'react';
 export type ButtonVariant = 'primary' | 'secondary';
 
 const base =
-  'haze-inner label inline-flex items-center justify-center gap-3 px-5 py-3.5 transition-colors duration-300 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500';
+  'inline-flex items-center justify-center gap-2 rounded-[4px] border px-[22px] py-[11px] text-sm font-medium leading-[1.4] transition-colors duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700';
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: 'bg-blue-700 text-white hover:bg-ink-900',
-  secondary: 'border border-bar/45 text-ink-900 hover:border-bar hover:bg-ink-50',
+  primary: 'border-transparent bg-blue-700 text-white hover:bg-ink-900',
+  secondary: 'border-transparent bg-ink-50 text-ink-900 hover:border-line-strong',
 };
 
-const disabledClasses = 'border border-bar/25 bg-ink-50 text-ink-400 cursor-not-allowed';
+const disabledClasses = 'border-transparent bg-ink-50 text-ink-400 cursor-not-allowed';
 
-// Use this to style a Link the same way as a Button. See Home.tsx.
+// Use this to style a Link the same way as a Button.
 export function buttonClassNames(variant: ButtonVariant = 'primary', isDisabled = false): string {
   return isDisabled ? `${base} ${disabledClasses}` : `${base} ${variantClasses[variant]}`;
 }

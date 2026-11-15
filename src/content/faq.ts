@@ -3,50 +3,49 @@ import type { FaqItem } from '../types/content';
 export const faq: FaqItem[] = [
   {
     id: 'who-can-take-part',
-    question: 'Who can take part in the Yale Impact Expo?',
+    question: 'Who can take part?',
     answer:
-      'Every Yale student, from every school and every year. Projects do not need to be technical, and you do not need a prior connection to a lab, a firm, or an investor. That is precisely the gap the Expo exists to close.',
+      "Any Yale student, in any school or year. Projects don't have to be technical, and you don't need a connection to a lab, firm or investor.",
   },
   {
     id: 'do-i-need-a-team',
-    question: 'Do I need a team or an idea before I start?',
+    question: 'Do I need a team or an idea?',
     answer:
-      'No. The first two weeks are built for exactly this: a kickoff, track introductions, partner problem prompts, faculty lightning talks, and structured team matching. Plenty of the strongest teams meet on day one.',
+      'No. The first two weeks include a kickoff, track talks, partner prompts and team matching. Many teams meet on the first day.',
   },
   {
     id: 'what-can-i-build',
     question: 'What counts as a project?',
     answer:
-      'A prototype or AI tool, an empirical research report, a policy memo, a nonprofit or venture proposal, a legal or governance framework, or a concrete pilot plan. The standard is the same for all of them: research-backed, ethical, feasible, and pointed at real public benefit.',
+      'A prototype, a research report, a policy memo, a nonprofit or venture plan, a legal framework, or a pilot plan. All are judged on evidence, ethics, feasibility and public benefit.',
   },
   {
     id: 'cost-to-take-part',
-    question: 'Is there a cost to take part?',
-    answer:
-      'None. Participation is free, cloud credits and tooling are covered by our partners, and travel stipends are available so that cost never decides who takes part.',
+    question: 'Does it cost anything?',
+    answer: 'No. Partners cover cloud credits and tools, and travel stipends are available.',
   },
   {
     id: 'what-do-teams-win',
-    question: 'What do strong teams actually win?',
+    question: 'What do strong teams win?',
     answer:
-      'Opportunity rather than a cheque: lab placements and research assistant roles, investor office hours, legal formation support, policy meetings, cloud and API credits, implementation pilots, and continuation grants that keep good work alive after the weekend.',
+      'Lab placements, investor office hours, help forming a nonprofit or company, policy meetings, cloud credits, pilots, and grants to keep the work going.',
   },
   {
     id: 'how-judging-works',
     question: 'How does judging work?',
     answer:
-      'Every partner may judge, but the Expo team assigns the panels. Each panel mixes partner representatives, academic experts, student representatives, and community or domain experts, so that no organization can buy influence over an outcome.',
+      'The Expo team assigns every panel. Each one mixes partners, faculty, students and community experts, so no single organization decides an outcome.',
   },
   {
     id: 'become-a-partner',
-    question: 'Can my organization become a partner?',
+    question: 'Can my organization partner with you?',
     answer:
-      'Yes, in any of the nine domains. Corporate partners contribute funding in exchange for visibility, judging access, and student engagement. Faculty, labs, public agencies, nonprofits, and community organizations are welcomed for the expertise, problem statements, and implementation pathways they bring, at no cost.',
+      'Yes, in any of the nine fields. Companies fund the Expo and judge. Faculty, labs, agencies, nonprofits and community groups join at no cost and bring problems, expertise and pilots.',
   },
   {
     id: 'community-role',
     question: 'How does New Haven fit in?',
     answer:
-      'Local organizations bring the problems, sit on the panels, and hold the work to account. A civic project that the community it names would not want is not a successful project, however elegant the prototype.',
+      'Local organizations bring problems, sit on the panels, and judge civic projects by whether their community wants them.',
   },
 ];

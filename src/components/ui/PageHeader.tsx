@@ -1,22 +1,20 @@
 import type { ReactNode } from 'react';
-import { Reveal } from './Reveal';
 
 interface PageHeaderProps {
-  eyebrow: string;
   title: ReactNode;
-  meta?: ReactNode;
+  lede?: ReactNode;
+  children?: ReactNode; // Buttons or anything else under the lede.
 }
 
-// The top of every page below the home page, floating on its own panel.
-export function PageHeader({ eyebrow, title, meta }: PageHeaderProps) {
+// The top of every page below the home page: a heading, an optional line
+// under it, and a rule.
+export function PageHeader({ title, lede, children }: PageHeaderProps) {
   return (
-    <div className="mx-auto max-w-[1200px] px-4 py-2 sm:px-6 md:px-10 md:py-3">
-      <div className="haze px-5 py-8 sm:px-7 md:px-10 md:py-12">
-        <Reveal>
-          <p className="label text-ink-400">{eyebrow}</p>
-          <h1 className="display-2 mt-4">{title}</h1>
-          {meta ? <div className="mt-4 max-w-[62ch] text-base leading-[1.6] text-ink-500">{meta}</div> : null}
-        </Reveal>
+    <div className="border-b border-line">
+      <div className="wrap pb-8 pt-10 md:pt-14">
+        <h1 className="display-1 max-w-[22ch]">{title}</h1>
+        {lede ? <p className="mt-3 max-w-[58ch] text-lg leading-[1.55] text-ink-500">{lede}</p> : null}
+        {children ? <div className="mt-6">{children}</div> : null}
       </div>
     </div>
   );

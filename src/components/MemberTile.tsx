@@ -10,7 +10,6 @@ export interface Member {
   email?: string;
 }
 
-// Every tile on the Team page is 200px wide, officers and Expo team alike.
 interface MemberChipProps {
   member: Member;
   isOpen: boolean;
@@ -18,7 +17,7 @@ interface MemberChipProps {
   panelId: string;
 }
 
-// The pyramid tile. Headshot, name, title — nothing else until it is opened.
+// A tile on the Team page: headshot, name and role. It opens the panel below.
 export function MemberChip({ member, isOpen, onToggle, panelId }: MemberChipProps) {
   return (
     <button
@@ -26,26 +25,20 @@ export function MemberChip({ member, isOpen, onToggle, panelId }: MemberChipProp
       onClick={onToggle}
       aria-expanded={isOpen}
       aria-controls={panelId}
-      className={`haze-inner group flex w-[200px] flex-col overflow-hidden border text-left transition-colors duration-300 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 ${
-        isOpen ? 'border-bar' : 'border-bar/25 hover:border-bar/45'
+      className={`flex w-[168px] flex-col items-center gap-2 rounded-lg border px-3 py-[18px] text-center transition-colors duration-200 ease-out hover:border-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 ${
+        isOpen ? 'border-blue-700' : 'border-line-strong'
       }`}
     >
       <img
         src={asset(member.headshotUrl)}
         alt=""
         aria-hidden="true"
-        width={200}
-        height={128}
-        className={`h-[128px] w-full shrink-0 bg-ink-50 object-cover transition-[filter] duration-500 ease-out ${
-          isOpen ? 'grayscale-0' : 'grayscale group-hover:grayscale-0'
-        }`}
+        width={76}
+        height={76}
+        className="h-[76px] w-[76px] rounded-full bg-ink-50 object-cover"
       />
-      <span className="block border-t border-bar/25 px-3 py-3">
-        <span className="block truncate text-sm font-medium leading-[1.25] tracking-[-0.03em] text-ink-900">
-          {member.name}
-        </span>
-        <span className="label mt-1.5 block truncate text-blue-500">{member.role}</span>
-      </span>
+      <span className="text-[15px] font-medium leading-[1.3]">{member.name}</span>
+      <span className="text-sm text-ink-500">{member.role}</span>
     </button>
   );
 }
@@ -53,38 +46,29 @@ export function MemberChip({ member, isOpen, onToggle, panelId }: MemberChipProp
 interface MemberPanelProps {
   member: Member;
   id: string;
-  compact?: boolean; // True inside the narrow admin column.
 }
 
-// The detail that a tile opens, rendered beneath the row so that the pyramid
-// stays symmetric no matter which tile is selected.
-export function MemberPanel({ member, id, compact = false }: MemberPanelProps) {
+// The detail a tile opens, under the row, so each row stays centred whichever
+// tile is open.
+export function MemberPanel({ member, id }: MemberPanelProps) {
   return (
-    <div id={id} className="haze-inner mt-4 border border-bar bg-white/70">
-      <div className={`flex flex-col gap-4 p-5 ${compact ? '' : 'sm:flex-row sm:items-start'}`}>
-        <img
-          src={asset(member.headshotUrl)}
-          alt={member.name}
-          width={96}
-          height={96}
-          className="haze-inner h-24 w-24 shrink-0 bg-ink-50 object-cover"
-        />
-        <div className="min-w-0 flex-1">
-          <h3 className="display-3">{member.name}</h3>
-          <p className="label mt-1.5 text-blue-500">{member.role}</p>
-          {member.affiliation ? <p className="mt-1 text-xs text-ink-400">{member.affiliation}</p> : null}
-          {member.bio ? (
-            <p className="mt-3 max-w-[68ch] text-sm leading-[1.65] text-ink-700">{member.bio}</p>
-          ) : null}
-          {member.email ? (
-          <a
-            href={`mailto:${member.email}`}
-            className="label mt-4 inline-flex items-center border border-bar/45 px-4 py-2.5 text-ink-900 transition-colors duration-300 ease-out hover:border-bar hover:bg-ink-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
-          >
-            Contact me
-          </a>
-          ) : null}
-        </div>
+    <div
+      id={id}
+      className="mx-auto mt-4 flex max-w-[600px] flex-col gap-5 rounded-lg border border-line-strong p-[22px] text-left sm:flex-row sm:items-start"
+    >
+      <img
+        src={asset(member.headshotUrl)}
+        alt={member.name}
+        width={96}
+        height={96}
+        className="h-24 w-24 shrink-0 rounded-full bg-ink-50 object-cover"
+      />
+      <div className="min-w-0 flex-1">
+        <h3 className="text-xl font-medium">{member.name}</h3>
+        <p className="mt-0.5 text-ink-500">{member.role}</p>
+        {member.affiliation ? <p className="mt-2 text-sm text-ink-500">{member.affiliation}</p> : null}
+        {member.bio ? <p className="mt-3 max-w-[64ch] text-[15px] leading-[1.6] text-ink-700">{member.bio}</p> : null}
+        {member.email ? <p className="mt-3 select-all text-blue-700">{member.email}</p> : null}
       </div>
     </div>
   );

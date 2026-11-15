@@ -34,7 +34,7 @@ export function MessageThread({
 
   if (status === 'loading') {
     return (
-      <div className="border border-bar/25 p-4">
+      <div className="py-4">
         <PendingLabel>Loading messages</PendingLabel>
       </div>
     );
@@ -47,11 +47,11 @@ export function MessageThread({
       aria-live="polite"
       aria-relevant="additions"
       aria-label="Messages"
-      className="flex h-[420px] flex-col gap-3 overflow-y-auto border border-bar/25 p-4"
+      className="flex max-h-[480px] flex-col gap-3 overflow-y-auto py-1"
     >
       {messages.length === 0 ? (
         <li>
-          <EmptyNote>No messages yet. Write the first one below.</EmptyNote>
+          <EmptyNote>No messages yet.</EmptyNote>
         </li>
       ) : null}
 
@@ -60,23 +60,16 @@ export function MessageThread({
         return (
           <li
             key={message.id}
-            className={`max-w-[52ch] p-3 ${
-              isOwn ? 'ml-auto border border-bar bg-white' : 'border border-bar/25 bg-ink-50/70'
+            className={`max-w-[72%] rounded-[14px] px-4 py-3 max-sm:max-w-[88%] ${
+              isOwn ? 'ml-auto rounded-br-[4px] bg-blue-700 text-white' : 'mr-auto rounded-bl-[4px] bg-ink-50'
             }`}
           >
-            <p className="label text-ink-400">
+            <p className="text-[13px] opacity-75">
               <span className="sr-only">{isOwn ? 'You wrote' : `${otherName} wrote`}</span>
-              <span aria-hidden="true">{isOwn ? 'You' : otherName}</span>
+              <span aria-hidden="true">{isOwn ? 'You' : otherName}</span>,{' '}
+              <time dateTime={message.created_at}>{timeFormatter.format(new Date(message.created_at))}</time>
             </p>
-            <p className="mt-2 whitespace-pre-wrap text-sm leading-[1.6] text-ink-900">
-              {message.body}
-            </p>
-            <time
-              dateTime={message.created_at}
-              className="mt-2 block font-mono text-xs tracking-[0.02em] text-ink-400"
-            >
-              {timeFormatter.format(new Date(message.created_at))}
-            </time>
+            <p className="mt-1 whitespace-pre-wrap text-[15px] leading-[1.55]">{message.body}</p>
           </li>
         );
       })}

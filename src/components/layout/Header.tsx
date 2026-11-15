@@ -21,18 +21,18 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-bar/25 bg-white">
-      <div className="mx-auto flex h-[calc(var(--header-h)-1px)] max-w-[1200px] items-center justify-between gap-6 px-6 md:px-10">
+    <header className="sticky top-0 z-40 bg-white">
+      <div className="wrap flex h-[var(--header-h)] items-center justify-between gap-6">
         <NavLink
           to="/"
-          className="shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500"
+          className="shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-700"
         >
           <img
             src={asset('/brand/impex.png')}
             alt="Yale Impact Expo"
-            width={92}
-            height={34}
-            className="h-[34px] w-auto"
+            width={70}
+            height={26}
+            className="h-[26px] w-auto"
           />
         </NavLink>
         <nav aria-label="Main" className="min-w-0">
@@ -42,10 +42,8 @@ export function Header() {
                 <NavLink
                   to={item.to}
                   className={({ isActive }) =>
-                    `label border-b-2 pb-0.5 transition-colors duration-300 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500 ${
-                      isActive
-                        ? 'border-bar text-ink-900'
-                        : 'border-transparent text-ink-500 hover:border-bar/45 hover:text-ink-900'
+                    `text-sm underline-offset-[6px] transition-colors duration-200 ease-out hover:text-ink-900 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-700 ${
+                      isActive ? 'text-ink-900 underline' : 'text-ink-500'
                     }`
                   }
                 >

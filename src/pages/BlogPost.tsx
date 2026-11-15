@@ -1,7 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { Layout } from '../components/layout/Layout';
-import { Reveal } from '../components/ui/Reveal';
-import { formatPostDate, PostCard } from '../components/PostList';
+import { formatPostDate, NewsList } from '../components/PostList';
 import { ErrorNote, PendingLabel } from '../components/ui/Status';
 import { usePost, usePosts } from '../hooks/usePosts';
 import { NotFound } from './NotFound';
@@ -15,16 +14,14 @@ export function BlogPostPage() {
   // early return here shows the error 404 page for every story.
   if (status === 'loading') {
     return (
-      <Layout pattern="story" title="Yale Impact Expo" description="A story from the Yale Impact Expo.">
-        <div className="mx-auto max-w-[1200px] px-4 py-6 sm:px-6 md:px-10 md:py-10">
-          <div className="haze px-5 py-8 sm:px-7 md:px-10 md:py-12">
-            <PendingLabel>Loading the story</PendingLabel>
-            <div aria-hidden="true" className="mt-6">
-              <div className="h-8 w-full max-w-[26ch] bg-bar/10" />
-              <div className="mt-3 h-8 w-full max-w-[20ch] bg-bar/10" />
-              <div className="mt-6 h-3 w-full max-w-[62ch] bg-bar/10" />
-              <div className="mt-2 h-3 w-full max-w-[54ch] bg-bar/10" />
-            </div>
+      <Layout title="Yale Impact Expo" description="A story from the Yale Impact Expo.">
+        <div className="wrap pb-20 pt-10 [&>*]:max-w-[760px]">
+          <PendingLabel>Loading the story</PendingLabel>
+          <div aria-hidden="true" className="mt-6">
+            <div className="h-10 w-full max-w-[24ch] bg-ink-50" />
+            <div className="mt-3 h-10 w-full max-w-[18ch] bg-ink-50" />
+            <div className="mt-6 h-3 w-full max-w-[60ch] bg-ink-50" />
+            <div className="mt-2 h-3 w-full max-w-[52ch] bg-ink-50" />
           </div>
         </div>
       </Layout>
@@ -33,11 +30,9 @@ export function BlogPostPage() {
 
   if (status === 'error') {
     return (
-      <Layout pattern="story" title="Yale Impact Expo" description="A story from the Yale Impact Expo.">
-        <div className="mx-auto max-w-[1200px] px-4 py-6 sm:px-6 md:px-10 md:py-10">
-          <div className="haze px-5 py-8 sm:px-7 md:px-10 md:py-12">
-            <ErrorNote>The story did not load. Reload the page.</ErrorNote>
-          </div>
+      <Layout title="Yale Impact Expo" description="A story from the Yale Impact Expo.">
+        <div className="wrap pb-20 pt-10">
+          <ErrorNote>The story did not load. Reload the page.</ErrorNote>
         </div>
       </Layout>
     );
@@ -50,67 +45,47 @@ export function BlogPostPage() {
   const more = posts.filter((other) => other.slug !== post.slug).slice(0, 3);
 
   return (
-    <Layout
-      pattern="story"
-      title={`${post.title} · Yale Impact Expo`}
-      description={post.excerpt}
-      image={post.coverUrl}
-    >
-      <article className="mx-auto max-w-[1200px] px-4 py-6 sm:px-6 md:px-10 md:py-10">
-        <div className="haze px-5 py-8 sm:px-7 md:px-10 md:py-12">
-        <Reveal>
-          <p className="label text-ink-400">
-            <Link
-              to="/blog"
-              className="transition-colors duration-300 ease-out hover:text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500"
-            >
-              ← Blog
-            </Link>
-            <span className="px-2 text-ink-300">/</span>
-            <span className="text-blue-500">{post.category}</span>
-          </p>
+    <Layout title={`${post.title} · Yale Impact Expo`} description={post.excerpt} image={post.coverUrl}>
+      <article className="wrap pb-20 pt-10 [&>*]:max-w-[760px]">
+        <p className="mb-5 text-sm text-ink-400">
+          <Link to="/blog" className="text-ink-500 hover:text-ink-900 hover:underline">
+            The Impact Record
+          </Link>{' '}
+          / {post.category}
+        </p>
 
-          <h1 className="display-2 mt-5 max-w-[26ch]">{post.title}</h1>
-          <p className="mt-5 max-w-[62ch] text-lg leading-[1.5] tracking-[-0.02em] text-ink-700">{post.excerpt}</p>
+        <h1 className="display-1">{post.title}</h1>
+        <p className="mt-3 text-[19px] leading-[1.55] text-ink-500">{post.excerpt}</p>
 
-          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-1 border-y border-bar/25 py-3">
-            <p className="label text-ink-900">{post.author}</p>
-            {post.authorRole ? <p className="label text-ink-400">{post.authorRole}</p> : null}
-            <p className="label ml-auto text-ink-400">{formatPostDate(post.publishedAt)}</p>
-          </div>
+        <p className="mt-6 border-y border-line py-3 text-sm text-ink-400">
+          <b className="font-medium text-ink-900">{post.author}</b>
+          {post.authorRole ? `, ${post.authorRole}` : null} · {formatPostDate(post.publishedAt)}
+        </p>
 
-          {post.coverUrl ? (
-            <img
-              src={post.coverUrl}
-              alt={post.coverAlt ?? ''}
-              width={960}
-              height={640}
-              className="mt-8 aspect-[3/2] w-full bg-ink-50 object-cover"
-            />
-          ) : null}
+        {post.coverUrl ? (
+          <img
+            src={post.coverUrl}
+            alt={post.coverAlt ?? ''}
+            width={960}
+            height={640}
+            className="mt-8 aspect-[3/2] w-full rounded-md bg-ink-50 object-cover"
+          />
+        ) : null}
 
-          <div className="mt-8 max-w-[68ch] space-y-5 text-base leading-[1.7] text-ink-700">
-            {post.body.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
-          </div>
-        </Reveal>
+        <div className="mt-7 max-w-[66ch] space-y-5 text-[17px] leading-[1.75] text-ink-700">
+          {post.body.map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
+        </div>
 
         {more.length > 0 ? (
-          <section className="mt-16 border-t border-bar/25 pt-8" aria-labelledby="more-heading">
-            <h2 id="more-heading" className="label text-ink-400">
-              More from the Expo
+          <section className="mt-14 border-t border-line pt-8" aria-labelledby="more-heading">
+            <h2 id="more-heading" className="display-2 mb-4">
+              More stories
             </h2>
-            <ul className="mt-6 grid gap-x-8 gap-y-8 sm:grid-cols-3">
-              {more.map((other) => (
-                <li key={other.slug}>
-                  <PostCard post={other} />
-                </li>
-              ))}
-            </ul>
+            <NewsList posts={more} />
           </section>
         ) : null}
-        </div>
       </article>
     </Layout>
   );

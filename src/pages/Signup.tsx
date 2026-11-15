@@ -2,7 +2,6 @@ import { useActionState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { Layout } from '../components/layout/Layout';
 import { PageHeader } from '../components/ui/PageHeader';
-import { Reveal } from '../components/ui/Reveal';
 import { Button } from '../components/ui/Button';
 import { Field } from '../components/ui/Field';
 import { Input } from '../components/ui/Input';
@@ -51,20 +50,13 @@ export function Signup() {
 
   return (
     <Layout
-      pattern="students"
       title="Register · Yale Impact Expo"
       description="Register for the Yale Impact Expo with your Yale email address."
     >
-      <PageHeader
-        eyebrow="Students"
-        title="Register"
-        meta="Open to every Yale student, in every school and every year. Free to take part. You do not need a team, a prototype, or a prior connection to a lab."
-      />
+      <PageHeader title="Register" lede="Free for every Yale student. You do not need a team or a prototype." />
 
-      <div className="mx-auto max-w-[1200px] px-4 pb-8 sm:px-6 md:px-10">
-        <div className="haze px-5 py-8 sm:px-7 md:px-10 md:py-12">
-          <Reveal>
-            <form action={submit} className="max-w-[520px] border border-bar/25 p-6">
+      <div className="wrap pb-20 pt-10">
+            <form action={submit} className="max-w-[460px] rounded-lg border border-line-strong p-[26px]">
               <div className="grid gap-5">
                 <Field label="Full name">
                   {({ id }) => (
@@ -85,14 +77,14 @@ export function Signup() {
                   )}
                 </Field>
 
-                <Field label="School" hint="Example: Yale College, or School of Management.">
+                <Field label="School">
                   {({ id, describedBy }) => (
                     <Input id={id} name="school" aria-describedby={describedBy} />
                   )}
                 </Field>
 
                 <div className="grid gap-5 sm:grid-cols-2">
-                  <Field label="Programme" hint="Example: Computer Science.">
+                  <Field label="Programme">
                     {({ id, describedBy }) => (
                       <Input id={id} name="program" aria-describedby={describedBy} />
                     )}
@@ -145,18 +137,13 @@ export function Signup() {
               </div>
             </form>
 
-            <p className="mt-6 max-w-[62ch] text-sm leading-[1.6] text-ink-500">
-              You can edit every field later in the portal. Already registered?{' '}
-              <Link
-                to="/login"
-                className="border-b border-bar/45 pb-0.5 text-ink-900 transition-colors duration-300 ease-out hover:border-bar focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500"
-              >
+            <p className="mt-5 text-ink-500">
+              Already registered?{' '}
+              <Link to="/login" className="text-blue-700 underline">
                 Log in
               </Link>
               .
             </p>
-          </Reveal>
-        </div>
       </div>
     </Layout>
   );
