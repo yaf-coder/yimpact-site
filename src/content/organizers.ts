@@ -1,6 +1,6 @@
 import type { Organizer } from '../types/content';
 
-// The Expo team: the chair, and the leads who run the day-to-day work.
+// The Expo team: the director, the board, and the leads who run the day-to-day work.
 // A bio and an email are optional. The Team page shows only what is here.
 export const organizers: Organizer[] = [
   {
@@ -14,11 +14,39 @@ export const organizers: Organizer[] = [
   {
     id: 'eric-zou',
     name: 'Eric Zou',
-    role: 'Lead',
-    rank: 'team',
+    role: 'Board',
+    rank: 'board',
     affiliation: "Yale '27, Computer Science",
     headshotUrl: '/headshots/eric-zou.svg',
     email: 'engineering@yaleimpactexpo.org',
+  },
+  {
+    id: 'laika-patel',
+    name: 'Laika Patel',
+    role: 'Board',
+    rank: 'board',
+    headshotUrl: '/headshots/laika-patel.jpg',
+  },
+  {
+    id: 'meghana-hebbar',
+    name: 'Meghana Hebbar',
+    role: 'Board',
+    rank: 'board',
+    headshotUrl: '/headshots/meghana-hebbar.jpg',
+  },
+  {
+    id: 'sophia-fang',
+    name: 'Sophia Fang',
+    role: 'Board',
+    rank: 'board',
+    headshotUrl: '/headshots/sophia-fang.jpg',
+  },
+  {
+    id: 'hudson-kaplan',
+    name: 'Hudson Kaplan',
+    role: 'Board',
+    rank: 'board',
+    headshotUrl: '/headshots/hudson-kaplan.jpg',
   },
   {
     id: 'wynter-radey-morgan',
@@ -28,32 +56,11 @@ export const organizers: Organizer[] = [
     headshotUrl: '/headshots/wynter-radey-morgan.svg',
   },
   {
-    id: 'laika-patel',
-    name: 'Laika Patel',
+    id: 'munazza-chowdhury',
+    name: 'Munazza Chowdhury',
     role: 'Lead',
     rank: 'team',
-    headshotUrl: '/headshots/laika-patel.jpg',
-  },
-  {
-    id: 'sophia-fang',
-    name: 'Sophia Fang',
-    role: 'Lead',
-    rank: 'team',
-    headshotUrl: '/headshots/sophia-fang.jpg',
-  },
-  {
-    id: 'meghana-hebbar',
-    name: 'Meghana Hebbar',
-    role: 'Lead',
-    rank: 'team',
-    headshotUrl: '/headshots/meghana-hebbar.jpg',
-  },
-  {
-    id: 'hudson-kaplan',
-    name: 'Hudson Kaplan',
-    role: 'Lead',
-    rank: 'team',
-    headshotUrl: '/headshots/hudson-kaplan.jpg',
+    headshotUrl: '/headshots/munazza-chowdhury.svg',
   },
   {
     id: 'aditya-kothari',
@@ -61,13 +68,6 @@ export const organizers: Organizer[] = [
     role: 'Lead',
     rank: 'team',
     headshotUrl: '/headshots/aditya-kothari.svg',
-  },
-  {
-    id: 'munazza-chowdhury',
-    name: 'Munazza Chowdhury',
-    role: 'Lead',
-    rank: 'team',
-    headshotUrl: '/headshots/munazza-chowdhury.svg',
   },
   {
     id: 'kaavya-malu',

@@ -42,6 +42,7 @@ export function Team() {
 
   const director = organizers.filter((organizer) => organizer.rank === 'director');
   const chair = organizers.filter((organizer) => organizer.rank === 'chair');
+  const board = organizers.filter((organizer) => organizer.rank === 'board');
   const executive = organizers.filter((organizer) => organizer.rank === 'executive');
   const leads = organizers.filter((organizer) => organizer.rank === 'team');
 
@@ -50,6 +51,7 @@ export function Team() {
     [
       { key: 'director', label: 'Director', members: director },
       { key: 'chair', label: 'Chair', members: chair },
+      { key: 'board', label: 'Board', members: board },
       { key: 'executive', label: 'Executive council', members: executive },
       { key: 'leads', label: 'Leads', members: leads },
     ] as { key: string; label: string; members: Member[] }[]

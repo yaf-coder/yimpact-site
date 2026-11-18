@@ -15,7 +15,7 @@ import type { OrganizerRank } from '../types/content';
 const textLink =
   'text-blue-700 underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-700';
 
-const rankOrder: Record<OrganizerRank, number> = { director: 0, chair: 1, executive: 2, team: 3 };
+const rankOrder: Record<OrganizerRank, number> = { director: 0, chair: 1, board: 2, executive: 3, team: 4 };
 
 // "corporate, government, ... and healthcare"
 const fieldNames = domainOrder.map((domain) => domainLabels[domain].toLowerCase());
