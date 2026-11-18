@@ -75,7 +75,7 @@ export function Login() {
         <p className="mt-5 text-ink-500">
           New here?{' '}
           <Link to="/signup" className="text-blue-700 underline">
-            Register with your Yale email
+            Apply with your Yale email
           </Link>
           .
         </p>

@@ -60,11 +60,11 @@ export function Resources() {
     >
       <PageHeader
         title="Resources"
-        lede="What partners offer Expo teams. Registered students see the contact details, booking links and codes."
+        lede="What partners offer Expo teams. Approved students see the contact details, booking links and codes."
       >
         {authStatus === 'signedIn' ? null : (
           <Link to="/signup" className={buttonClassNames('primary')}>
-            Register
+            Apply
           </Link>
         )}
       </PageHeader>
@@ -72,7 +72,12 @@ export function Resources() {
       <div className="wrap pb-20 pt-10">
         {authStatus === 'signedIn' && !isApprovedMember ? (
           <p className="mb-6 text-ink-500">
-            <Badge>Pending approval</Badge> The details open once the team approves your registration.
+            <Badge>Not approved yet</Badge> The details open once the team approves your application.
+            Check your status in the{' '}
+            <Link to="/portal" className="text-blue-700 underline">
+              portal
+            </Link>
+            .
           </p>
         ) : null}
 

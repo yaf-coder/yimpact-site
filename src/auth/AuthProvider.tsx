@@ -3,9 +3,16 @@ import type { ReactNode } from 'react';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from '../lib/supabase';
 import { allowedDomainMessage, hasAllowedDomain } from '../lib/email';
+import { uploadResume } from '../lib/application';
 import type { ProfileEdit, ProfileRow } from '../types/db';
 import { AuthContext } from './context';
-import type { AuthStatus, AuthValue, ProfileStatus, SignUpFields } from './context';
+import type {
+  AuthStatus,
+  AuthValue,
+  ProfileStatus,
+  SignUpFields,
+  SignUpResult,
+} from './context';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<AuthStatus>('loading');
@@ -87,14 +94,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signUp = useCallback(
-    async (email: string, password: string, fields: SignUpFields) => {
+    async (email: string, password: string, fields: SignUpFields): Promise<SignUpResult> => {
       if (!hasAllowedDomain(email)) {
-        return { error: allowedDomainMessage };
+        return { error: allowedDomainMessage, needsConfirmation: false, resumeError: null };
       }
 
       // These fields go to user_metadata. The signup trigger copies them into
       // the profile row once. The role never comes from here.
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -103,13 +110,48 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             school: fields.school,
             program: fields.program,
             grad_year: fields.gradYear,
+            bio: fields.bio,
           },
         },
       });
-      return { error: error ? error.message : null };
+      if (error) return { error: error.message, needsConfirmation: false, resumeError: null };
+
+      // Without a session, storage refuses the upload. The portal asks for the
+      // resume after the first sign-in.
+      const user = data.user;
+      if (!data.session || !user) {
+        return { error: null, needsConfirmation: true, resumeError: null };
+      }
+
+      const upload = await uploadResume(user.id, fields.resume);
+      if (upload.error || !upload.path) {
+        return { error: null, needsConfirmation: false, resumeError: upload.error };
+      }
+
+      const { data: row, error: saveError } = await supabase
+        .from('profiles')
+        .update({ resume_path: upload.path })
+        .eq('id', user.id)
+        .select()
+        .maybeSingle();
+      if (saveError) {
+        return { error: null, needsConfirmation: false, resumeError: saveError.message };
+      }
+      if (row) {
+        setProfile(row as ProfileRow);
+        setProfileStatus('ready');
+      }
+      return { error: null, needsConfirmation: false, resumeError: null };
     },
     [],
   );
+
+  const resubmitApplication = useCallback(async () => {
+    const { error } = await supabase.rpc('resubmit_application');
+    if (error) return { error: error.message };
+    await refreshProfile();
+    return { error: null };
+  }, [refreshProfile]);
 
   const signOut = useCallback(async () => {
     await supabase.auth.signOut();
@@ -152,8 +194,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signOut,
       saveProfile,
       refreshProfile,
+      resubmitApplication,
     };
-  }, [status, session, profile, profileStatus, signIn, signUp, signOut, saveProfile, refreshProfile]);
+  }, [
+    status,
+    session,
+    profile,
+    profileStatus,
+    signIn,
+    signUp,
+    signOut,
+    saveProfile,
+    refreshProfile,
+    resubmitApplication,
+  ]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

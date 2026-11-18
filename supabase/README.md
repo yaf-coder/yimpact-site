@@ -25,7 +25,7 @@ site looks broken. Turn it on again before real use.
 ## 3. Run the migrations
 
 Open the **SQL Editor**. Run each file in `supabase/migrations/` in number
-order, from `0001` to `0009`.
+order, from `0001` to `0015`.
 
 | File | Content |
 |---|---|
@@ -38,6 +38,8 @@ order, from `0001` to `0009`.
 | `0007_sponsor_schedule.sql` | The sponsor schedule |
 | `0008_storage.sql` | The blog image bucket |
 | `0009_seed_demo.sql` | Invented rows and the 7 blog posts |
+| `0010` to `0014` | Fixes to the blog and the partner roster |
+| `0015_applications.sql` | Student applications, resumes, and the decision history |
 
 ## 4. Make the staff accounts
 
@@ -92,14 +94,24 @@ Run these in order. Stop at the first failure.
    response in the network tab. No address, no code, and no booking link may
    appear in any payload. This is the test that matters.
 
-3. **A pending student.** Run
-   `update public.app_settings set value = 'false'::jsonb where key = 'auto_approve_students';`
-   then register. The tiles show, the details do not.
+3. **A pending student.** Apply at `/signup` with every field and a PDF
+   resume. The portal shows "Under review". The tiles show, the details do not.
 
 4. **Approval.** Sign in as the admin, open `/portal/admin`, and approve the
-   student. The details open with no new sign-in.
+   student. The student sees "Approved" after a page refresh. The details
+   open with no new sign-in.
 
-5. **The column grant.** As a student, try to make yourself an admin:
+5. **An incomplete application.** Make a second student with no resume. The
+   Approve button is disabled. A direct call to `approve_member` must fail.
+
+6. **A second application.** Reject a student. As that student, change a
+   field and select **Send application again**. The admin sees "Reapplied",
+   and the earlier version with its resume.
+
+7. **The resume bucket.** As a student, try to read the resume of another
+   student. Expect a failure.
+
+8. **The column grant.** As a student, try to make yourself an admin:
 
    ```bash
    curl -X PATCH -H "apikey: YOUR-ANON-KEY" \
@@ -112,19 +124,23 @@ Run these in order. Stop at the first failure.
    **Expect a failure.** A success means the column grant in `0001` is wrong,
    and every account is open.
 
-6. **Storage.** Sign in as a student and try an upload to `blog-images`. Expect
+9. **Storage.** Sign in as a student and try an upload to `blog-images`. Expect
    a failure.
 
 Last, run the **Database Linter** in the dashboard. Fix every error.
 
 ## Notes
 
-- Automatic approval is on. Turn it off with one statement:
+- Automatic approval is off from `0015`. Each student applies, and an admin
+  approves or rejects the application. `approve_member` refuses an incomplete
+  application. Each decision writes a snapshot to `application_decisions`.
 
-  ```sql
-  update public.app_settings set value = 'false'::jsonb
-  where key = 'auto_approve_students';
-  ```
+- The site sends no decision email yet. To add one later, make a Database
+  Webhook on insert into `application_decisions`. Point it at an Edge Function
+  that sends the email. The frontend does not change.
+
+- Do not add an update policy or a delete policy to the `resumes` bucket. Each
+  snapshot points at an old file, and that file must stay.
 
 - Chat polls every four seconds. To move to Realtime later, run
   `alter publication supabase_realtime add table public.messages;` and change

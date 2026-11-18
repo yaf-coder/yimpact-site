@@ -9,10 +9,10 @@ interface PortalLink {
 }
 
 const links: PortalLink[] = [
-  { to: '/portal/profile', label: 'Profile', roles: ['student'] },
+  { to: '/portal/profile', label: 'Application', roles: ['student'] },
   { to: '/portal/sponsor', label: 'Schedule', roles: ['sponsor'] },
   { to: '/portal/messages', label: 'Messages', roles: ['student', 'sponsor'] },
-  { to: '/portal/admin', label: 'Approvals', roles: ['admin'] },
+  { to: '/portal/admin', label: 'Applications', roles: ['admin'] },
   { to: '/portal/admin/messages', label: 'Inbox', roles: ['admin'] },
   { to: '/portal/admin/announcements', label: 'Post', roles: ['admin', 'announcements'] },
 ];

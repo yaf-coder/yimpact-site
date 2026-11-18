@@ -18,7 +18,7 @@ export function NoProfileNote() {
         <div className="max-w-[760px]">
           <ErrorNote title="No profile">
             This account has no profile record, so the portal cannot open. The account was probably
-            made before the database was set up. Write to the team, or register again with a new
+            made before the database was set up. Write to the team, or apply again with a new
             address.
           </ErrorNote>
           <p className="mt-4 text-xs text-ink-400">{session?.user.email}</p>
