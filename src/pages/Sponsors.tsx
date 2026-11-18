@@ -65,38 +65,24 @@ export function Sponsors() {
 
   return (
     <Layout
-      pattern="none"
       title="Partners · Yale Impact Expo"
       description="The partners of the Yale Impact Expo across nine domains, from corporate and government to philanthropy and healthcare."
     >
       <PageHeader
-        eyebrow={sponsors.length > 0 ? `${sponsors.length} partners · 9 domains` : 'To be announced · 9 domains'}
         title="Partners"
-        meta={
-          <>
-            Our partners make Impact Expo possible. Interested in working with us?{' '}
-            <a href="#partner-with-us" className="border-b border-bar/45 pb-0.5 text-ink-900 transition-colors duration-300 ease-out hover:border-bar focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500">
-              Learn more here.
-            </a>
-          </>
+        lede={
+          sponsors.length > 0
+            ? `${sponsors.length} partners across nine fields.`
+            : 'Our first batch of partners will be announced soon.'
         }
       />
 
-      <div className="mx-auto max-w-[1200px] px-4 pb-8 sm:px-6 md:px-10">
-        <div className="haze px-5 py-8 sm:px-7 md:px-10 md:py-12">
-        {sponsors.length === 0 ? (
-          <div className="mb-8 border-b border-bar/25 pb-6">
-            <p className="label text-blue-500">To be announced</p>
-            <p className="mt-2 max-w-[62ch] text-base leading-[1.6] text-ink-700">
-              We are confirming our partners for the coming Expo. They appear here as they sign on.
-            </p>
-          </div>
-        ) : null}
+      <div className="wrap pb-20 pt-10">
         {isAdmin ? (
-          <div className="haze-inner mb-6 flex flex-wrap items-center justify-between gap-4 border border-bar/25 bg-ink-50/70 px-4 py-3">
-            <p className="label text-ink-500">
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-md bg-ink-50 px-4 py-3">
+            <p className="text-sm text-ink-500">
               {isPlacing
-                ? 'Drop the bubble where the partner belongs — the column sets the domain, the height sets the size range. Escape to cancel.'
+                ? 'Drop the bubble where the partner belongs. The column sets the field, the height sets the size. Escape cancels.'
                 : 'Signed in as an organizer'}
             </p>
             <button
@@ -104,11 +90,7 @@ export function Sponsors() {
               onClick={() => setIsPlacing((current) => !current)}
               aria-label={isPlacing ? 'Cancel placing a partner' : 'Add a partner'}
               aria-pressed={isPlacing}
-              className={`label flex shrink-0 items-center gap-2 border px-4 py-2.5 transition-colors duration-300 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 ${
-                isPlacing
-                  ? 'border-bar/45 text-ink-900 hover:border-bar'
-                  : 'border-bar bg-ink-900 text-white hover:bg-blue-700'
-              }`}
+              className={buttonClassNames(isPlacing ? 'secondary' : 'primary')}
             >
               {isPlacing ? (
                 'Cancel'
@@ -122,36 +104,29 @@ export function Sponsors() {
           </div>
         ) : null}
 
-        <SponsorField
-          items={items}
-          isPlacing={isPlacing}
-          onPlace={handlePlace}
-          onCancelPlacing={() => setIsPlacing(false)}
-          previewImpact={isPlacing ? 60 : placement?.impact ?? null}
-          previewDomain={placement?.domain ?? null}
-        />
+        {/* The bubble field shows once there are partners to show. Until then
+            only organizers see it, so they can place the first ones. */}
+        {isAdmin || sponsors.length > 0 ? (
+          <SponsorField
+            items={items}
+            isPlacing={isPlacing}
+            onPlace={handlePlace}
+            onCancelPlacing={() => setIsPlacing(false)}
+            previewImpact={isPlacing ? 60 : placement?.impact ?? null}
+            previewDomain={placement?.domain ?? null}
+          />
+        ) : null}
 
-        <p className="label mt-8 border-t border-bar/25 pt-4 text-ink-300">
-          Outlined bubbles are placeholders. They give way as partners are confirmed.
-        </p>
-
-        {/* The "Learn more here" link in the page header lands here. The margin
-            keeps the heading clear of the sticky header. */}
-        <div id="partner-with-us" className="mt-14 scroll-mt-32 border-t border-bar/25 pt-8">
-          <h2 className="display-2 max-w-[20ch]">
-            We want to make an <span className="accent-serif">impact</span> with you.
-          </h2>
-          <p className="mt-4 max-w-[62ch] text-base leading-[1.6] text-ink-700">
-            Becoming a partner starts with a conversation. Write to us and tell us which of the nine domains you sit
-            in, and we will send you the partner brief. Together we work out where you fit best: judging, mentoring a
-            team, offering resources to students, or funding continuation grants. Once we agree, we set up your
-            partner account, where you can see your Expo schedule and reach our team directly.
+        <section className={isAdmin || sponsors.length > 0 ? 'mt-14 border-t border-line pt-8' : undefined}>
+          <h2 className="display-2">Become a partner</h2>
+          <p className="mt-2 max-w-[60ch] text-lg leading-[1.55] text-ink-500">
+            Write to us with your field and we will send the partner brief. Partners judge, mentor teams, offer
+            resources or fund grants. Each partner gets an account with their Expo schedule.
           </p>
-          <a href={`mailto:${event.sponsorEmail}`} className={`${buttonClassNames('primary')} mt-6`}>
+          <a href={`mailto:${event.sponsorEmail}`} className={`${buttonClassNames('primary')} mt-5`}>
             {event.sponsorEmail}
           </a>
-        </div>
-        </div>
+        </section>
       </div>
 
       {placement ? (

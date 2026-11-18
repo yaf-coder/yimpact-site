@@ -4,6 +4,7 @@ import { Layout } from '../../components/layout/Layout';
 import { PageHeader } from '../../components/ui/PageHeader';
 import { PortalNav } from '../../components/portal/PortalNav';
 import { Badge } from '../../components/ui/Badge';
+import { Tabs, Tab } from '../../components/ui/Tabs';
 import { EmptyNote, ErrorNote, PendingLabel } from '../../components/ui/Status';
 import { useMembers } from '../../hooks/useMembers';
 import { missingFields, openResume } from '../../lib/application';
@@ -79,19 +80,17 @@ export function AdminHome() {
 
   return (
     <Layout
-      pattern="team"
       title="Applications · Yale Impact Expo"
       description="Review the student applications for the Yale Impact Expo."
     >
       <PortalNav />
       <PageHeader
-        eyebrow="Admin"
         title="Applications"
-        meta="Every student applies. Approve a complete application, or reject it. A rejected student can update the application and send it again, and each earlier version stays here."
+        lede="Approve a complete application, or reject it. A rejected student can update and resend it, and each earlier version stays here."
       />
 
-      <div className="mx-auto max-w-[1200px] px-4 pb-8 sm:px-6 md:px-10">
-        <div className="haze px-5 py-8 sm:px-7 md:px-10 md:py-12">
+      <div className="wrap pb-20 pt-10">
+        <div>
           {error ? <ErrorNote className="mb-6">{error}</ErrorNote> : null}
           {status === 'loading' ? <PendingLabel /> : null}
           {status === 'error' ? <ErrorNote>The member list did not load.</ErrorNote> : null}
@@ -99,41 +98,27 @@ export function AdminHome() {
           {status === 'ready' ? (
             <>
               <section aria-labelledby="students-heading">
-                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-bar/25 pb-3">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-line pb-3">
                   <h2 id="students-heading" className="display-2">
                     Students
                   </h2>
                   <p className="label text-ink-400">{students.length} applications</p>
                 </div>
 
-                <div
-                  role="group"
-                  aria-label="Filter applications by status"
-                  className="mt-4 flex flex-wrap gap-2"
-                >
-                  {tabOrder.map((key) => (
-                    <button
-                      key={key}
-                      type="button"
-                      onClick={() => setTab(key)}
-                      aria-pressed={tab === key}
-                      className={`label border px-3 py-2 transition-colors duration-300 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 ${
-                        tab === key
-                          ? 'border-bar bg-ink-50 text-ink-900'
-                          : 'border-bar/25 text-ink-400 hover:text-ink-900'
-                      }`}
-                    >
-                      {tabLabels[key]} · {counts[key]}
-                    </button>
-                  ))}
+                <div className="mt-6">
+                  <Tabs label="Filter applications by status">
+                    {tabOrder.map((key) => (
+                      <Tab key={key} active={tab === key} count={counts[key]} onClick={() => setTab(key)}>
+                        {tabLabels[key]}
+                      </Tab>
+                    ))}
+                  </Tabs>
                 </div>
 
                 {visible.length === 0 ? (
-                  <p className="mt-6">
-                    <EmptyNote>No applications here.</EmptyNote>
-                  </p>
+                  <EmptyNote>No applications here.</EmptyNote>
                 ) : (
-                  <ul className="mt-4 border-t border-bar/25">
+                  <ul className="border-t border-line">
                     {visible.map((member) => (
                       <ApplicationItem
                         key={member.id}
@@ -149,23 +134,23 @@ export function AdminHome() {
               </section>
 
               <section aria-labelledby="staff-heading" className="mt-16">
-                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-bar/25 pb-3">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-line pb-3">
                   <h2 id="staff-heading" className="display-2">
                     Partners and staff
                   </h2>
                   <p className="label text-ink-400">{staff.length} accounts</p>
                 </div>
-                <ul className="mt-2 border-t border-bar/25">
+                <ul className="mt-2 border-t border-line">
                   {staff.map((member) => (
                     <li
                       key={member.id}
-                      className="grid gap-1 border-b border-bar/25 py-3.5 sm:grid-cols-[200px_minmax(0,1fr)_auto] sm:gap-6"
+                      className="grid gap-1 border-b border-line py-3.5 sm:grid-cols-[200px_minmax(0,1fr)_auto] sm:gap-6"
                     >
                       <span className="text-sm leading-[1.4] text-ink-900">
                         {member.full_name || member.email}
                       </span>
-                      <span className="font-mono text-xs text-ink-400">{member.email}</span>
-                      <span className="label text-blue-500">{member.role}</span>
+                      <span className="text-xs text-ink-400">{member.email}</span>
+                      <span className="text-sm text-ink-500">{member.role}</span>
                     </li>
                   ))}
                 </ul>
@@ -197,13 +182,13 @@ function ApplicationItem({
   const hasReapplied = member.status === 'pending' && history.some((d) => d.decision === 'rejected');
 
   return (
-    <li className="border-b border-bar/25 py-4">
+    <li className="border-b border-line py-4">
       <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start sm:gap-6">
         <div className="min-w-0">
           <p className="text-base leading-[1.35] tracking-[-0.025em] text-ink-900">
             {member.full_name || member.email}
           </p>
-          <p className="mt-1 font-mono text-xs text-ink-400">{member.email}</p>
+          <p className="mt-1 text-xs text-ink-400">{member.email}</p>
           <p className="mt-1 text-xs leading-[1.5] text-ink-500">
             {[member.school, member.program, member.grad_year].filter(Boolean).join(' · ') ||
               'No school details yet'}
@@ -244,12 +229,12 @@ function ApplicationItem({
       </div>
 
       <details className="group mt-3">
-        <summary className="label cursor-pointer text-ink-400 transition-colors duration-300 ease-out hover:text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">
+        <summary className="cursor-pointer text-sm font-medium text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700">
           Read the application
           {history.length > 0 ? ` and ${history.length} earlier` : ''}
         </summary>
 
-        <div className="mt-4 grid gap-6 border-l-2 border-bar/25 pl-4">
+        <div className="mt-4 grid gap-6 border-l-2 border-line pl-4">
           <ApplicationBody
             bio={member.bio}
             linkedin={member.linkedin_url}
@@ -263,7 +248,7 @@ function ApplicationItem({
               <p className="label text-ink-900">Earlier decisions</p>
               <ol className="mt-3 grid gap-4">
                 {history.map((decision, index) => (
-                  <li key={decision.id} className="border border-bar/25 p-4">
+                  <li key={decision.id} className="rounded-md border border-line p-4">
                     <p className="label text-ink-400">
                       Application {history.length - index} ·{' '}
                       <span className="text-ink-900">
@@ -353,7 +338,7 @@ function DetailRow({ label, children }: { label: string; children: ReactNode }) 
 }
 
 const linkClass =
-  'border-b border-bar/45 pb-0.5 text-ink-900 transition-colors duration-300 ease-out hover:border-bar focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500';
+  'text-blue-700 underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-700';
 
 function TextButton({ onClick, children }: { onClick: () => void; children: ReactNode }) {
   return (
@@ -393,7 +378,7 @@ function DecideButton({
       onClick={onClick}
       disabled={isBusy || isDisabled}
       title={title}
-      className="label border border-bar/45 px-3 py-2 text-ink-900 transition-colors duration-300 ease-out hover:border-bar hover:bg-ink-50/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 disabled:cursor-not-allowed disabled:border-bar/25 disabled:text-ink-400"
+      className="rounded-[4px] border border-line-strong px-3.5 py-1.5 text-[13px] font-medium text-ink-900 transition-colors duration-200 ease-out hover:border-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 disabled:cursor-not-allowed disabled:text-ink-400 disabled:hover:border-line-strong"
     >
       {isBusy ? 'Working' : children}
     </button>

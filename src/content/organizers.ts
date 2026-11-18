@@ -28,13 +28,6 @@ export const organizers: Organizer[] = [
     headshotUrl: '/headshots/wynter-radey-morgan.svg',
   },
   {
-    id: 'eli-ratner',
-    name: 'Eli Ratner',
-    role: 'Lead',
-    rank: 'team',
-    headshotUrl: '/headshots/eli-ratner.svg',
-  },
-  {
     id: 'laika-patel',
     name: 'Laika Patel',
     role: 'Lead',

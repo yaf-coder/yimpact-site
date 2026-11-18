@@ -1,122 +1,119 @@
+import type { ComponentType } from 'react';
+import { Link } from 'react-router-dom';
 import { Layout } from '../components/layout/Layout';
 import { PageHeader } from '../components/ui/PageHeader';
-import { Reveal } from '../components/ui/Reveal';
-import { VideoEmbed } from '../components/VideoEmbed';
 import { buttonClassNames } from '../components/ui/Button';
+import { PlainList } from '../components/PlainList';
+import { ChipDrawing, ConstitutionDrawing, ResearcherDrawing } from '../components/students/Drawings';
 import { event } from '../content/event';
-import { tracks } from '../content/tracks';
 import { pathways } from '../content/pathways';
-import { studentSteps, walkthroughSummary, walkthroughTitle, walkthroughVideoId } from '../content/students';
+import { projectTypes, studentSteps } from '../content/students';
+import type { ProjectType } from '../content/students';
+
+const drawings: Record<ProjectType['id'], { Drawing: ComponentType<{ className?: string }>; width: string }> = {
+  technical: { Drawing: ChipDrawing, width: 'max-w-[340px]' },
+  policy: { Drawing: ConstitutionDrawing, width: 'max-w-[420px]' },
+  research: { Drawing: ResearcherDrawing, width: 'max-w-[420px]' },
+};
 
 export function Students() {
   return (
     <Layout
-      pattern="students"
       title="Students · Yale Impact Expo"
-      description="What the Yale Impact Expo is, what a semester looks like, and how any Yale student can take part."
+      description="The kinds of project Yale students bring to the Impact Expo, how the semester runs, and how to apply."
     >
       <PageHeader
-        eyebrow="For students"
-        title={
-          <>
-            Have an idea? Work with the best to <span className="accent-serif">build</span> it.
-          </>
-        }
-        meta={`Bring your pitch to Impact Expo in ${event.expoSeason}. You'll have the opportunity to work alongside and network with some of the biggest leaders in the industry. Open to Yale students of all grade levels!`}
+        title="Students"
+        lede="Every Yale student is welcome, with any kind of project. Bring the fields you care about together."
       />
 
-      <div className="mx-auto max-w-[1200px] px-4 pb-8 sm:px-6 md:px-10">
-        <div className="haze px-5 py-8 sm:px-7 md:px-10 md:py-12">
-        <Reveal>
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:gap-10">
-            <div>
-              <VideoEmbed videoId={walkthroughVideoId} title={walkthroughTitle} />
-              <p className="label mt-3 text-ink-400">Watch first · {walkthroughTitle}</p>
-            </div>
-            <div className="flex flex-col">
-              <h2 className="display-2 max-w-[18ch]">Start here</h2>
-              <p className="mt-4 text-base leading-[1.6] text-ink-700">{walkthroughSummary}</p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <a href={`mailto:${event.contactEmail}`} className={buttonClassNames('primary')}>
-                  Ask a question
-                </a>
-                <a href="#the-semester" className={buttonClassNames('secondary')}>
-                  See the semester
-                </a>
+      {/* One band per kind of project: a drawing on one side, the question
+          and three example ideas on the other. The drawing alternates sides. */}
+      {projectTypes.map((type, index) => {
+        const { Drawing, width } = drawings[type.id];
+        const drawingLast = index % 2 === 1;
+        return (
+          <section
+            key={type.id}
+            aria-labelledby={`type-${type.id}`}
+            className={index > 0 ? 'border-t border-line' : undefined}
+          >
+            <div className="wrap grid items-center gap-8 py-14 md:grid-cols-2 md:gap-16 md:py-20">
+              <div className={`flex justify-center ${drawingLast ? 'md:order-2' : ''}`}>
+                <Drawing className={`w-full ${width}`} />
+              </div>
+              <div>
+                <h2 id={`type-${type.id}`} className="display-2">
+                  {type.heading}
+                </h2>
+                <ul className="mt-6 border-t border-line">
+                  {type.examples.map((example) => (
+                    <li key={example.name} className="grid gap-0.5 border-b border-line py-3.5">
+                      <span className="font-bold">{example.name}</span>
+                      <span className="text-[15px] leading-[1.55] text-ink-500">{example.summary}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-          </div>
-        </Reveal>
+          </section>
+        );
+      })}
 
-        <section id="the-semester" className="mt-16 border-t border-bar/25 pt-8" aria-labelledby="semester-heading">
-          <Reveal>
-            <h2 id="semester-heading" className="display-2">
-              The semester, week by week
-            </h2>
-            <ol className="mt-6 border-t border-bar/25">
-              {studentSteps.map((step, index) => (
-                <li
-                  key={step.id}
-                  className="grid gap-1 border-b border-bar/25 py-4 sm:grid-cols-[40px_180px_120px_minmax(0,1fr)] sm:gap-6"
-                >
-                  <span className="label text-ink-300">{String(index + 1).padStart(2, '0')}</span>
-                  <span className="text-base leading-[1.35] tracking-[-0.025em] text-ink-900">{step.name}</span>
-                  <span className="label text-blue-500">{step.timing}</span>
-                  <span className="text-sm leading-[1.55] text-ink-500">{step.summary}</span>
-                </li>
-              ))}
-            </ol>
-          </Reveal>
-        </section>
-
-        <section className="mt-16 border-t border-bar/25 pt-8" aria-labelledby="tracks-heading">
-          <Reveal>
-            <h2 id="tracks-heading" className="display-2">
-              Pick a track
-            </h2>
-            <p className="mt-4 max-w-[68ch] text-base leading-[1.6] text-ink-700">
-              Tracks are organizing tools, not boundaries. Projects do not need to be technical — a policy memo, a
-              bias study, a nonprofit proposal, and a working prototype are judged against the same standard.
-            </p>
-            <ul className="haze-inner mt-6 grid gap-px overflow-hidden border border-bar/25 bg-bar/25 sm:grid-cols-2 lg:grid-cols-4">
-              {tracks.map((track) => (
-                <li key={track.id} className="bg-white p-4">
-                  <h3 className="text-sm font-medium leading-[1.3] tracking-[-0.028em] text-ink-900">{track.name}</h3>
-                  <p className="mt-2 text-xs leading-[1.55] text-ink-500">{track.focus}</p>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </section>
-
-        <section className="mt-16 border-t border-bar/25 pt-8" aria-labelledby="leave-with-heading">
-          <Reveal>
-            <h2 id="leave-with-heading" className="display-2">
-              How good work keeps going
-            </h2>
-            <p className="mt-4 max-w-[68ch] text-base leading-[1.6] text-ink-700">
-              These pathways exist to carry a project further than a weekend. They advance the students behind it as
-              a consequence, which we are glad about — but every one of them is judged on whether the work reaches
-              the people it was built for.
-            </p>
-            <ul className="haze-inner mt-6 grid gap-px overflow-hidden border border-bar/25 bg-bar/25 sm:grid-cols-2 lg:grid-cols-3">
-              {pathways.map((pathway) => (
-                <li key={pathway.id} className="bg-white p-4">
-                  <h3 className="text-sm font-medium leading-[1.3] tracking-[-0.028em] text-ink-900">
-                    {pathway.name}
-                  </h3>
-                  <p className="mt-2 text-xs leading-[1.55] text-ink-500">{pathway.summary}</p>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-6 max-w-[68ch] text-sm leading-[1.6] text-ink-500">
-              Opportunity terms are stated plainly. You will always know the difference between a guaranteed
-              placement, a finalist conversation, and a non-binding review.
-            </p>
-          </Reveal>
-        </section>
+      <section className="border-t border-line" aria-labelledby="semester-heading">
+        <div className="wrap py-14 md:py-16">
+          <h2 id="semester-heading" className="display-2 mb-4">
+            The semester
+          </h2>
+          <ol className="border-t border-line">
+            {studentSteps.map((step, index) => (
+              <li
+                key={step.id}
+                className="grid grid-cols-[28px_minmax(0,1fr)] gap-x-2 gap-y-0.5 border-b border-line py-3.5 md:grid-cols-[28px_260px_minmax(0,1fr)] md:items-baseline md:gap-x-6"
+              >
+                <span className="text-ink-400">{index + 1}</span>
+                <span className="font-bold">{step.name}</span>
+                {step.summary ? (
+                  <span className="col-start-2 text-[15px] leading-[1.55] text-ink-500 md:col-start-3">{step.summary}</span>
+                ) : null}
+              </li>
+            ))}
+          </ol>
         </div>
-      </div>
+      </section>
+
+      <section className="border-t border-line" aria-labelledby="support-heading">
+        <div className="wrap py-14 md:py-16">
+          <h2 id="support-heading" className="display-2">
+            Mentors and resources
+          </h2>
+          <p className="mb-6 mt-2 max-w-[60ch] text-lg leading-[1.55] text-ink-500">
+            Teams get help from mentors and partners during the semester, and strong teams keep getting it after the
+            Expo.
+          </p>
+          <PlainList
+            columns={2}
+            items={pathways.map((pathway) => ({ id: pathway.id, title: pathway.name, text: pathway.summary }))}
+          />
+        </div>
+      </section>
+
+      <section className="border-t border-line bg-ink-50" aria-labelledby="apply-heading">
+        <div className="wrap py-16 text-center md:py-20">
+          <h2 id="apply-heading" className="display-2">
+            Ready to apply?
+          </h2>
+          <p className="mt-2 text-lg text-ink-500">You don&rsquo;t need a team or any experience to get started.</p>
+          <div className="mt-6 flex justify-center">
+            <Link to="/signup" className={buttonClassNames('primary')}>
+              Apply
+            </Link>
+          </div>
+          <p className="mt-5 text-ink-500">
+            Questions: <span className="select-all text-blue-700">{event.contactEmail}</span>
+          </p>
+        </div>
+      </section>
     </Layout>
   );
 }

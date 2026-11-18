@@ -87,23 +87,22 @@ export function StudentProfile() {
 
   return (
     <Layout
-      pattern="students"
       title="Application · Yale Impact Expo"
       description="Your Yale Impact Expo student application."
     >
       <PortalNav />
       <PageHeader
-        eyebrow="Portal"
         title="Your application"
-        meta="The team reads this when they review your application, and later when they match teams, mentors, and partner introductions."
+        lede="The team reads this when they review your application, and later to match teams, mentors and partners."
       />
 
-      <div className="mx-auto max-w-[1200px] px-6 pb-8 md:px-10">
+      <div className="wrap pt-8">
         <ApplicationStatus profile={profile} />
       </div>
 
       <form onSubmit={handleSubmit} key={state.savedAt}>
-        <Section index="01" eyebrow="School">
+        <Section className="mt-8" heading="School">
+
           <div className="grid max-w-[620px] gap-5">
             <Field label="Full name">
               {({ id }) => (
@@ -120,7 +119,7 @@ export function StudentProfile() {
           </div>
         </Section>
 
-        <Section index="02" eyebrow="Resume and links">
+        <Section heading="Resume and links">
           <div className="grid max-w-[620px] gap-5">
             {profile.resume_path ? <CurrentResume path={profile.resume_path} /> : null}
 
@@ -250,12 +249,13 @@ function StatusBox({
   tone?: 'plain' | 'done';
   children: ReactNode;
 }) {
-  const box = tone === 'done' ? 'border-blue-500 bg-blue-50' : 'border-bar bg-ink-50/70';
+  // Matches ErrorNote and DoneNote in components/ui/Status.tsx.
+  const rule = tone === 'done' ? 'border-blue-500' : 'border-bar';
   const label = tone === 'done' ? 'text-blue-700' : 'text-ink-900';
   return (
-    <div className={`max-w-[620px] border-l-2 p-4 ${box}`} role="status">
-      <p className={`label ${label}`}>{title}</p>
-      <div className="mt-2 max-w-[62ch] text-sm leading-[1.6] text-ink-700">{children}</div>
+    <div className={`max-w-[620px] border-l-2 py-1 pl-4 ${rule}`} role="status">
+      <p className={`text-sm font-medium ${label}`}>{title}</p>
+      <div className="mt-1 max-w-[62ch] text-sm leading-[1.6] text-ink-500">{children}</div>
     </div>
   );
 }
@@ -270,11 +270,11 @@ function CurrentResume({ path }: { path: string }) {
 
   return (
     <div>
-      <p className="label text-ink-400">Resume on file</p>
+      <p className="text-sm font-medium text-ink-900">Resume on file</p>
       <button
         type="button"
         onClick={handleOpen}
-        className="mt-2 border-b border-bar/45 pb-0.5 text-sm text-ink-900 transition-colors duration-300 ease-out hover:border-bar focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500"
+        className="mt-1.5 text-sm text-blue-700 underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-700"
       >
         Open your resume
       </button>

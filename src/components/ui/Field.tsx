@@ -27,17 +27,17 @@ export function Field({ label, hint, error, className = '', children }: FieldPro
 
   return (
     <div className={className}>
-      <label htmlFor={id} className="label block text-ink-400">
+      <label htmlFor={id} className="block text-sm font-medium text-ink-900">
         {label}
       </label>
-      <div className="mt-2">{children({ id, describedBy, invalid: Boolean(error) })}</div>
+      <div className="mt-1.5">{children({ id, describedBy, invalid: Boolean(error) })}</div>
       {hint ? (
-        <p id={hintId} className="mt-2 text-xs leading-[1.55] text-ink-400">
+        <p id={hintId} className="mt-1.5 text-[13px] leading-[1.5] text-ink-400">
           {hint}
         </p>
       ) : null}
       {error ? (
-        <p id={errorId} className="mt-2 text-xs leading-[1.55] text-ink-900">
+        <p id={errorId} className="mt-1.5 text-[13px] leading-[1.5] text-ink-900">
           {error}
         </p>
       ) : null}

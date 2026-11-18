@@ -41,16 +41,16 @@ export function MessageComposer({ onSend, isSending }: MessageComposerProps) {
 
   return (
     <form
-      className="mt-4"
+      className="mt-5 border-t border-line pt-4"
       onSubmit={(formEvent) => {
         formEvent.preventDefault();
         void send();
       }}
     >
-      <label htmlFor={id} className="label block text-ink-400">
-        Your message
+      <label htmlFor={id} className="sr-only">
+        Message
       </label>
-      <div className="mt-2">
+      <div>
         <Textarea
           id={id}
           ref={boxRef}
@@ -58,17 +58,16 @@ export function MessageComposer({ onSend, isSending }: MessageComposerProps) {
           value={body}
           onChange={(changeEvent) => setBody(changeEvent.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Enter sends. Shift and Enter make a new line."
+          placeholder="Write a message"
         />
       </div>
 
       {error ? <ErrorNote className="mt-3">{error}</ErrorNote> : null}
 
-      <div className="mt-3 flex items-center gap-4">
+      <div className="mt-3 flex justify-end">
         <Button type="submit" isDisabled={isSending || body.trim().length === 0}>
           {isSending ? 'Sending' : 'Send'}
         </Button>
-        <p className="label text-ink-300">The team answers during term.</p>
       </div>
     </form>
   );

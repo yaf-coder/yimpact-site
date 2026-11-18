@@ -97,7 +97,7 @@ export function ResumeInput({ required = false, hint }: { required?: boolean; hi
           accept="application/pdf,.pdf"
           required={required}
           aria-describedby={describedBy}
-          className="file:label file:mr-4 file:border-0 file:bg-ink-50 file:px-3 file:py-1.5 file:text-ink-900"
+          className="file:mr-4 file:rounded-[4px] file:border-0 file:bg-ink-50 file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-ink-900"
         />
       )}
     </Field>

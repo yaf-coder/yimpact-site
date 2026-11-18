@@ -1,17 +1,16 @@
 import type { ReactNode } from 'react';
 
-// The site has one animation and no spinner. A wait state is one mono line.
+// A wait state is one quiet line. There is no spinner.
 export function PendingLabel({ children = 'Loading' }: { children?: ReactNode }) {
   return (
-    <p className="label text-ink-300" role="status">
+    <p className="text-sm text-ink-400" role="status">
       {children}
     </p>
   );
 }
 
-// No red. Section 3.5 of BUILD_SPEC.md permits one accent colour. The heavy
-// left rule and the word carry the meaning without colour, which also keeps
-// the contrast correct.
+// No red: the rule and the word carry the meaning, which also keeps the
+// contrast correct.
 export function ErrorNote({
   title = 'Error',
   children,
@@ -22,14 +21,14 @@ export function ErrorNote({
   className?: string;
 }) {
   return (
-    <div className={`border-l-2 border-bar bg-ink-50/70 p-4 ${className}`} role="alert">
-      <p className="label text-ink-900">{title}</p>
-      <p className="mt-2 max-w-[62ch] text-sm leading-[1.6] text-ink-700">{children}</p>
+    <div className={`border-l-2 border-bar py-1 pl-4 ${className}`} role="alert">
+      <p className="text-sm font-medium text-ink-900">{title}</p>
+      <p className="mt-1 max-w-[62ch] text-sm leading-[1.6] text-ink-500">{children}</p>
     </div>
   );
 }
 
-// The same box, without the alert role. Use it for a saved state.
+// The same note, without the alert role. Use it for a saved state.
 export function DoneNote({
   title = 'Saved',
   children,
@@ -40,13 +39,13 @@ export function DoneNote({
   className?: string;
 }) {
   return (
-    <div className={`border-l-2 border-blue-500 bg-blue-50 p-4 ${className}`} role="status">
-      <p className="label text-blue-700">{title}</p>
-      <p className="mt-2 max-w-[62ch] text-sm leading-[1.6] text-ink-700">{children}</p>
+    <div className={`border-l-2 border-blue-500 py-1 pl-4 ${className}`} role="status">
+      <p className="text-sm font-medium text-blue-700">{title}</p>
+      <p className="mt-1 max-w-[62ch] text-sm leading-[1.6] text-ink-500">{children}</p>
     </div>
   );
 }
 
 export function EmptyNote({ children }: { children: ReactNode }) {
-  return <p className="text-sm text-ink-500">{children}</p>;
+  return <p className="text-ink-500">{children}</p>;
 }

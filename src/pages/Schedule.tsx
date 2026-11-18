@@ -1,29 +1,20 @@
 import { Layout } from '../components/layout/Layout';
 import { PageHeader } from '../components/ui/PageHeader';
-import { Reveal } from '../components/ui/Reveal';
 import { ScheduleTable } from '../components/ScheduleTable';
 import { schedule } from '../content/schedule';
-import { event } from '../content/event';
 
 export function Schedule() {
   return (
     <Layout
-      pattern="schedule"
       title="Schedule · Yale Impact Expo"
-      description="The Expo weekend agenda: track showcases, judging, partner office hours, and the opportunity awards."
+      description="The Expo weekend agenda: track showcases, judging, partner office hours, and the finalist announcements."
     >
       <PageHeader
-        eyebrow={`${schedule.length} sessions · ${event.dateLabel}`}
         title="Schedule"
-        meta="Saturday is the centre of the weekend: track showcases, balanced judging panels, partner office hours open to every team, and the finalist announcements. Rooms are confirmed closer to the date."
+        lede="Saturday, April 17, 2027, the main day of Expo weekend. Rooms are confirmed closer to the date."
       />
-
-      <div className="mx-auto max-w-[1200px] px-4 pb-8 sm:px-6 md:px-10">
-        <div className="haze px-5 py-8 sm:px-7 md:px-10 md:py-12">
-          <Reveal>
-            <ScheduleTable items={schedule} />
-          </Reveal>
-        </div>
+      <div className="wrap pb-20 pt-10">
+        <ScheduleTable items={schedule} />
       </div>
     </Layout>
   );

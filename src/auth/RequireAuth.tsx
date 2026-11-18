@@ -24,8 +24,8 @@ export function RequireAuth() {
 
 export function PortalWait() {
   return (
-    <Layout pattern="login" title="Portal · Yale Impact Expo" description="The Yale Impact Expo portal.">
-      <div className="mx-auto max-w-[1200px] px-6 py-24 md:px-10">
+    <Layout title="Portal · Yale Impact Expo" description="The Yale Impact Expo portal.">
+      <div className="wrap py-24">
         <PendingLabel />
       </div>
     </Layout>

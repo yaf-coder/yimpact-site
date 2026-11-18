@@ -10,7 +10,7 @@ import { useAuth } from '../../auth/useAuth';
 import { useSponsorSchedule } from '../../hooks/useSponsorSchedule';
 import { sponsors } from '../../content/sponsors';
 import { domainLabels } from '../../content/sponsors';
-import { partnerFacts, partnerNote } from '../../content/sponsorPortal';
+import { partnerFacts } from '../../content/sponsorPortal';
 
 export function SponsorPortal() {
   const { profile } = useAuth();
@@ -21,18 +21,13 @@ export function SponsorPortal() {
 
   return (
     <Layout
-      pattern="partner"
       title="Partner portal · Yale Impact Expo"
       description="Your Yale Impact Expo schedule and partner details."
     >
       <PortalNav />
-      <PageHeader
-        eyebrow="Partner portal"
-        title={org ? org.name : 'Partner portal'}
-        meta="Your agreement, your judging blocks, and your schedule for the Expo weekend."
-      />
+      <PageHeader title={org ? org.name : 'Partner portal'} />
 
-      <Section index="01" eyebrow="Organization">
+      <Section>
         {org ? (
           <div className="mb-6 flex items-center gap-4">
             <img
@@ -44,7 +39,7 @@ export function SponsorPortal() {
             />
             <div>
               <p className="text-base leading-[1.3] tracking-[-0.028em] text-ink-900">{org.name}</p>
-              <p className="label mt-1 text-blue-500">{domainLabels[org.domain]}</p>
+              <p className="mt-0.5 text-sm text-ink-500">{domainLabels[org.domain]}</p>
             </div>
           </div>
         ) : (
@@ -55,12 +50,12 @@ export function SponsorPortal() {
           </p>
         )}
 
-        <div className="border-t border-bar/25">
+        <div className="border-t border-line">
           <dl>
             {partnerFacts.map((fact) => (
               <div
                 key={fact.term}
-                className="grid gap-0.5 border-b border-bar/25 py-3.5 sm:grid-cols-[140px_minmax(0,1fr)] sm:gap-8"
+                className="grid gap-0.5 border-b border-line py-3.5 sm:grid-cols-[140px_minmax(0,1fr)] sm:gap-8"
               >
                 <dt className="label text-ink-400">{fact.term}</dt>
                 <dd className="text-base leading-[1.5] tracking-[-0.02em] text-ink-900">
@@ -70,10 +65,9 @@ export function SponsorPortal() {
             ))}
           </dl>
         </div>
-        <p className="mt-4 max-w-[62ch] text-xs leading-[1.55] text-ink-400">{partnerNote}</p>
       </Section>
 
-      <Section index="02" eyebrow="Schedule" heading="Your Expo weekend">
+      <Section heading="Your Expo weekend">
         {status === 'loading' ? <PendingLabel /> : null}
         {status === 'error' ? <ErrorNote>The schedule did not load.</ErrorNote> : null}
         {status === 'ready' && items.length === 0 ? (
@@ -82,12 +76,9 @@ export function SponsorPortal() {
         {status === 'ready' && items.length > 0 ? <ScheduleTable items={items} /> : null}
       </Section>
 
-      <Section index="03" eyebrow="Messages" heading="Talk to the team">
-        <p className="max-w-[62ch] text-base leading-[1.6] text-ink-700">
-          Ask about judging, rooms, student introductions, or anything in your agreement. The
-          partnerships desk answers during term.
-        </p>
-        <Link to="/portal/messages" className={`${buttonClassNames('primary')} mt-6`}>
+      <Section heading="Messages">
+        <p className="text-lg text-ink-500">Ask the team about judging, rooms or your agreement.</p>
+        <Link to="/portal/messages" className={`${buttonClassNames('primary')} mt-5`}>
           Open messages
         </Link>
       </Section>

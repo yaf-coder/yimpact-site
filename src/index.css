@@ -1,184 +1,211 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink-900: #0b1524;
-  --color-ink-700: #334155;
-  --color-ink-500: #64748b;
-  --color-ink-400: #94a3b8;
-  --color-ink-300: #cbd5e1;
-  --color-ink-100: #e4e9f0;
-  --color-ink-50: #f6f8fb;
+  /* The palette: Rapture's Light #F6F3E7, Milk Tooth #FAEBD7, Caramel
+     Essence #E3AF64, Sapphire Dust #516AC8, Blue Oblivion #26428B and
+     Cosmic Odyssey #0F1939. The greys are Cosmic Odyssey mixed into
+     Rapture's Light, so text and rules share the page's warmth. */
+  --color-ink-900: #0f1939;
+  --color-ink-700: #3d455c;
+  --color-ink-500: #626778;
+  --color-ink-400: #828690;
+  --color-ink-300: #b5b6b6;
+  --color-ink-100: #dad9d2;
+  --color-ink-50: #faebd7;
 
-  /* The brand red, used for the page patterns and bubble outlines. Yale navy
-     stays the accent for buttons and links. */
-  --color-brand: #e00034;
+  /* The page is Rapture's Light, not pure white. Overriding white here
+     carries it to every bg-white surface, and to the light text on the
+     blue buttons. */
+  --color-white: #f6f3e7;
 
-  /* A sober shade of the same hue (346°). The rules and panel borders use it.
-     It is also the maroon in the logo. */
-  --color-bar: #7b3243;
+  /* Caramel Essence: the globe's light. */
+  --color-brand: #e3af64;
 
-  --color-blue-900: #00224a;
-  --color-blue-700: #00356b;
-  --color-blue-500: #286dc0;
-  --color-blue-100: #dce8f7;
-  --color-blue-50: #f0f5fc;
+  /* Hairline rules, warm grey. */
+  --color-line: #e6e1d3;
+  --color-line-strong: #d8d2c2;
 
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-serif: 'Newsreader', ui-serif, Georgia, serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+  /* Blue Oblivion is the one accent: buttons, links, the active tab. */
+  --color-bar: #26428b;
+  --color-blue-900: #0f1939;
+  --color-blue-700: #26428b;
+  --color-blue-500: #516ac8;
+  --color-blue-100: #d6dcf1;
+  --color-blue-50: #eceef6;
 
-  /* Nothing on this site is rounded. The two names stay so that focus rings
-     and older call sites keep working. */
-  --radius-card: 0px;
-  --radius-control: 0px;
+  --font-sans: 'Atkinson Hyperlegible', 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'EB Garamond', Georgia, serif;
+  /* Buttons have their own face, so they can differ from the text. */
+  --font-button: var(--font-sans);
 
-  /* 48px on a laptop, scaling down with the viewport. */
-  --radius-haze: clamp(20px, 3.9vw, 48px);
-  --radius-inner: clamp(10px, 1.9vw, 24px);
-
-  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --radius-control: 4px;
 
   /* The header is one non-wrapping row. Sticky rails below it use this. */
   --header-h: 58px;
 }
 
+/* The page column. Every band of the site lines up on it. */
+@utility wrap {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1100px;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+
 body {
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
-  letter-spacing: -0.011em;
-  background-color: #ffffff;
-  color: var(--color-ink-700);
+  background-color: var(--color-white);
+  color: var(--color-ink-900);
   -webkit-font-smoothing: antialiased;
 }
 
-/* Display type is set tight. The larger it runs, the tighter it tracks. */
-.display-1 {
-  font-size: clamp(2.5rem, 6vw, 4.25rem);
-  line-height: 1.04;
-  letter-spacing: -0.045em;
-  font-weight: 500;
-  color: var(--color-ink-900);
+a {
+  text-underline-offset: 3px;
 }
 
-.display-2 {
-  font-size: clamp(1.75rem, 3.4vw, 2.5rem);
-  line-height: 1.1;
-  letter-spacing: -0.038em;
-  font-weight: 500;
-  color: var(--color-ink-900);
+/* Component classes sit in a layer, so a utility on the same element can
+   still change a size or a colour. */
+@layer components {
+  /* Headings are set in the serif, to sit with the Yale wordmark. */
+  .display-1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    line-height: 1.08;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+    color: var(--color-ink-900);
+  }
+
+  .display-2 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    line-height: 1.15;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+    color: var(--color-ink-900);
+  }
+
+  .display-3 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    line-height: 1.2;
+    font-weight: 500;
+    color: var(--color-ink-900);
+  }
+
+  /* Small text: field labels, dates, counts. */
+  .label {
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  /* The homepage title. The Yale wordmark sits in it, so the type around it
+     follows its lead. */
+  .hero-title {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: clamp(3rem, 6.4vw, 5.25rem);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    color: var(--color-ink-900);
+  }
+
+  .hero-title > span {
+    display: block;
+  }
+
+  .hero-title .hero-the {
+    font-weight: 500;
+    font-size: 0.74em;
+  }
+
+  .hero-title img {
+    display: inline;
+    height: 0.92em;
+    width: auto;
+    vertical-align: baseline;
+    margin-left: 0.12em;
+  }
 }
 
-.display-3 {
-  font-size: 1.25rem;
-  line-height: 1.25;
-  letter-spacing: -0.028em;
-  font-weight: 500;
-  color: var(--color-ink-900);
+/* The lit globe's stage fades at the top and foot so its shafts of light
+   never stop at a hard edge. On wide screens the globe sits right of
+   centre and the right edge fades too. */
+.lit-globe canvas {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent);
 }
 
-/* The serif runs light and picks out one word inside a display heading. */
-.accent-serif {
-  font-family: var(--font-serif);
-  font-weight: 300;
-  font-style: italic;
+@media (min-width: 768px) {
+  .lit-globe canvas {
+    -webkit-mask-image:
+      linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent),
+      linear-gradient(to left, transparent, #000 5%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent),
+      linear-gradient(to left, transparent, #000 5%);
+    mask-composite: intersect;
+  }
 }
 
-/* Every small label on the site is mono, uppercase and widely tracked. */
-.label {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  line-height: 1.5;
-  font-weight: 500;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
+/* Line drawings, such as those on the Students page. One stroke weight
+   across a set, in Blue Oblivion, with fills in the page colour so lines
+   behind a shape stay hidden. */
+.line-art {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--color-blue-700);
 }
 
-.reveal {
-  opacity: 0;
-  transform: translateY(14px);
-  transition:
-    opacity 0.8s var(--ease-out-soft),
-    transform 0.8s var(--ease-out-soft);
+.line-art .ink {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.reveal[data-shown] {
-  opacity: 1;
-  transform: none;
+.line-art .solid {
+  fill: var(--color-white);
 }
 
-/* Every page carries its own motif, drawn thick and blocky at a large
-   scale: solid clover lobes, fat rings, stacked diamonds, punched-out
-   fractals. Content floats above them in translucent panels. */
-.pattern-home {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Cg stroke='none' fill-opacity='0.16'%3E%3Ccircle cx='150' cy='88' r='54'/%3E%3Ccircle cx='150' cy='212' r='54'/%3E%3Ccircle cx='88' cy='150' r='54'/%3E%3Ccircle cx='212' cy='150' r='54'/%3E%3C/g%3E%3Ccircle cx='150' cy='150' r='24' stroke='none' fill-opacity='0.3'/%3E%3Crect x='68' y='68' width='164' height='164' transform='rotate(45 150 150)' fill='none' stroke-width='22' stroke-opacity='0.12'/%3E%3Cg stroke='none' fill-opacity='0.11'%3E%3Ccircle cx='0' cy='0' r='46'/%3E%3Ccircle cx='300' cy='0' r='46'/%3E%3Ccircle cx='0' cy='300' r='46'/%3E%3Ccircle cx='300' cy='300' r='46'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  background-size: 300px 300px;
+.line-art .faint {
+  opacity: 0.45;
+  stroke-width: 1.3;
 }
 
-.pattern-students {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Cpath stroke='none' fill-opacity='0.15' fill-rule='evenodd' d='M130 22 L238 210 L22 210 Z M184 116 L130 210 L76 116 Z'/%3E%3Cg stroke='none' fill-opacity='0.26'%3E%3Cpath d='M157 69 L130 116 L103 69 Z'/%3E%3Cpath d='M103 163 L76 210 L49 163 Z'/%3E%3Cpath d='M211 163 L184 210 L157 163 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  background-size: 260px 260px;
+/* The microchip is drawn at a finer scale, so its lines are thinner. */
+.line-art-fine .ink {
+  stroke-width: 1.4;
 }
 
-.pattern-team {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Cg stroke='none' transform='rotate(45 120 120)'%3E%3Crect x='36' y='36' width='168' height='168' fill-opacity='0.10'/%3E%3Crect x='64' y='64' width='112' height='112' fill-opacity='0.14'/%3E%3Crect x='92' y='92' width='56' height='56' fill-opacity='0.22'/%3E%3C/g%3E%3Cg stroke='none' fill-opacity='0.13'%3E%3Ccircle cx='0' cy='0' r='26'/%3E%3Ccircle cx='240' cy='0' r='26'/%3E%3Ccircle cx='0' cy='240' r='26'/%3E%3Ccircle cx='240' cy='240' r='26'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  background-size: 240px 240px;
+.line-art-fine .faint {
+  stroke-width: 0.9;
 }
 
-.pattern-schedule {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Ccircle cx='110' cy='110' r='62' fill='none' stroke-width='24' stroke-opacity='0.13'/%3E%3Crect x='80' y='80' width='60' height='60' stroke='none' fill-opacity='0.22'/%3E%3Cg fill='none' stroke-width='24' stroke-opacity='0.10'%3E%3Ccircle cx='0' cy='0' r='62'/%3E%3Ccircle cx='220' cy='0' r='62'/%3E%3Ccircle cx='0' cy='220' r='62'/%3E%3Ccircle cx='220' cy='220' r='62'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  background-size: 220px 220px;
+/* The FAQ marker: a plus that turns to a cross when the answer is open. */
+.faq summary::-webkit-details-marker {
+  display: none;
 }
 
-.pattern-record {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Cg stroke='none' fill-opacity='0.09'%3E%3Ccircle cx='120' cy='120' r='84'/%3E%3Ccircle cx='0' cy='120' r='84'/%3E%3Ccircle cx='240' cy='120' r='84'/%3E%3Ccircle cx='120' cy='0' r='84'/%3E%3Ccircle cx='120' cy='240' r='84'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  background-size: 240px 240px;
+.faq summary::after {
+  content: '+';
+  font-size: 20px;
+  line-height: 1;
+  color: var(--color-ink-400);
+  transition: transform 0.2s ease;
 }
 
-.pattern-story {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Cpath stroke='none' fill-opacity='0.13' d='M0 130 A65 65 0 0 1 130 130 A65 65 0 0 1 260 130 L260 62 L0 62 Z'/%3E%3Cpath stroke='none' fill-opacity='0.2' d='M-65 260 A65 65 0 0 1 65 260 A65 65 0 0 1 195 260 A65 65 0 0 1 325 260 L325 224 L-65 224 Z'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 260px 260px;
-}
-
-.pattern-partner {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Cg fill='none' stroke-width='26'%3E%3Ccircle cx='130' cy='130' r='112' stroke-opacity='0.09'/%3E%3Ccircle cx='130' cy='130' r='72' stroke-opacity='0.13'/%3E%3C/g%3E%3Ccircle cx='130' cy='130' r='26' stroke='none' fill-opacity='0.24'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 260px 260px;
-}
-
-.pattern-login {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Cg stroke='none'%3E%3Crect x='18' y='18' width='184' height='184' fill-opacity='0.09'/%3E%3Crect x='50' y='50' width='120' height='120' fill-opacity='0.13'/%3E%3Crect x='82' y='82' width='56' height='56' fill-opacity='0.22'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  background-size: 220px 220px;
-}
-
-.pattern-notfound {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='%23e00034' stroke='%23e00034'%3E%3Cg stroke='none' fill-opacity='0.15'%3E%3Cpath d='M62 26 L120 132 L4 132 Z'/%3E%3Cpath d='M196 96 L250 190 L142 190 Z'/%3E%3C/g%3E%3Cpath stroke='none' fill-opacity='0.24' d='M120 160 L168 244 L72 244 Z'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 260px 260px;
-}
-
-.pattern-alumni {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='%23e00034' stroke='none'%3E%3Crect x='24' y='168' width='192' height='44' fill-opacity='0.10'/%3E%3Crect x='60' y='124' width='120' height='44' fill-opacity='0.15'/%3E%3Crect x='96' y='80' width='48' height='44' fill-opacity='0.22'/%3E%3Ccircle cx='120' cy='46' r='20' fill-opacity='0.17'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 240px 240px;
-}
-
-/* Every motif fades toward the foot of the viewport. */
-.pattern-fade {
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgb(0 0 0 / 0.6) 52%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, rgb(0 0 0 / 0.6) 52%, transparent 100%);
-}
-
-/* Text and controls sit on these: translucent, blurred, heavily rounded.
-   48px on a laptop, easing down on smaller screens. */
-.haze {
-  background-color: rgb(255 255 255 / 0.68);
-  -webkit-backdrop-filter: blur(22px) saturate(1.4);
-  backdrop-filter: blur(22px) saturate(1.4);
-  border: 1px solid rgb(123 50 67 / 0.3);
-  border-radius: var(--radius-haze);
-}
-
-/* Anything nested inside a panel takes the smaller corner. */
-.haze-inner {
-  border-radius: var(--radius-inner);
+.faq details[open] summary::after {
+  transform: rotate(45deg);
 }
 
 @media (prefers-reduced-motion: reduce) {

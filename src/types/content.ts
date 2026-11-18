@@ -100,6 +100,7 @@ export interface EventDetails {
   mission: string;
   dateLabel: string; // Shown to readers. The team sets a firm date later.
   expoSeason: string; // Example: "spring 2027". Goes into a sentence, so lower case.
+  expoDate: string; // The Expo weekend as readers see it. Example: "Feb 27–28, 2027".
   startsAt: string;
   endsAt: string;
   venueName: string;
