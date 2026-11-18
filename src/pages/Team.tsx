@@ -1,23 +1,44 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Layout } from '../components/layout/Layout';
 import { MemberChip, MemberPanel } from '../components/MemberTile';
 import type { Member } from '../components/MemberTile';
 import { organizers } from '../content/organizers';
 
 // Members fill a row up to this many, then a new row is spawned. Every row is
-// centred, so the group stays symmetric however many people are in it.
-const PER_ROW = 3;
+// centred, so the group stays symmetric however many people are in it. The
+// count follows the screen (two on phones, three on tablets, five on desktops)
+// and matches the tile widths below, so a row never wraps on its own.
+const WIDE = '(min-width: 1024px)';
+const MEDIUM = '(min-width: 640px)';
 
-function intoRows(members: Member[]): Member[][] {
+function perRowNow(): number {
+  if (window.matchMedia(WIDE).matches) return 5;
+  if (window.matchMedia(MEDIUM).matches) return 3;
+  return 2;
+}
+
+function usePerRow(): number {
+  const [perRow, setPerRow] = useState(perRowNow);
+  useEffect(() => {
+    const queries = [window.matchMedia(WIDE), window.matchMedia(MEDIUM)];
+    const update = () => setPerRow(perRowNow());
+    queries.forEach((query) => query.addEventListener('change', update));
+    return () => queries.forEach((query) => query.removeEventListener('change', update));
+  }, []);
+  return perRow;
+}
+
+function intoRows(members: Member[], perRow: number): Member[][] {
   const rows: Member[][] = [];
-  for (let index = 0; index < members.length; index += PER_ROW) {
-    rows.push(members.slice(index, index + PER_ROW));
+  for (let index = 0; index < members.length; index += perRow) {
+    rows.push(members.slice(index, index + perRow));
   }
   return rows;
 }
 
 export function Team() {
   const [openId, setOpenId] = useState<string | null>(null);
+  const perRow = usePerRow();
 
   const director = organizers.filter((organizer) => organizer.rank === 'director');
   const chair = organizers.filter((organizer) => organizer.rank === 'chair');
@@ -54,14 +75,14 @@ export function Team() {
               </h2>
 
               <div className="space-y-4">
-                {intoRows(group.members).map((row, rowIndex) => {
+                {intoRows(group.members, perRow).map((row, rowIndex) => {
                   const openMember = row.find((member) => member.id === openId);
                   const panelId = `member-panel-${group.key}-${rowIndex}`;
                   return (
                     <div key={panelId}>
                       <ul className="flex flex-wrap justify-center gap-3.5">
                         {row.map((member) => (
-                          <li key={member.id}>
+                          <li key={member.id} className="w-[calc((100%-14px)/2)] max-w-[200px] sm:w-[calc((100%-28px)/3)] lg:w-[calc((100%-56px)/5)]">
                             <MemberChip
                               member={member}
                               isOpen={openId === member.id}

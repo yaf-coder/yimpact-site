@@ -17,7 +17,8 @@ interface MemberChipProps {
   panelId: string;
 }
 
-// A tile on the Team page: headshot, name and role. It opens the panel below.
+// A tile on the Team page: a portrait photo, then the name and role. It opens
+// the panel below. Two tiles share a row on phones; wider screens fit five.
 export function MemberChip({ member, isOpen, onToggle, panelId }: MemberChipProps) {
   return (
     <button
@@ -25,7 +26,7 @@ export function MemberChip({ member, isOpen, onToggle, panelId }: MemberChipProp
       onClick={onToggle}
       aria-expanded={isOpen}
       aria-controls={panelId}
-      className={`flex w-[168px] flex-col items-center gap-2 rounded-lg border px-3 py-[18px] text-center transition-colors duration-200 ease-out hover:border-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 ${
+      className={`flex w-full flex-col overflow-hidden rounded-lg border bg-white text-center transition-colors duration-200 ease-out hover:border-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 ${
         isOpen ? 'border-blue-700' : 'border-line-strong'
       }`}
     >
@@ -33,12 +34,15 @@ export function MemberChip({ member, isOpen, onToggle, panelId }: MemberChipProp
         src={asset(member.headshotUrl)}
         alt=""
         aria-hidden="true"
-        width={76}
-        height={76}
-        className="h-[76px] w-[76px] rounded-full bg-ink-50 object-cover"
+        width={640}
+        height={800}
+        loading="lazy"
+        className="aspect-[4/5] w-full bg-ink-50 object-cover"
       />
-      <span className="text-[15px] font-medium leading-[1.3]">{member.name}</span>
-      <span className="text-sm text-ink-500">{member.role}</span>
+      <span className="flex flex-col gap-0.5 px-3 py-3">
+        <span className="text-[15px] font-bold leading-[1.3]">{member.name}</span>
+        <span className="text-sm text-ink-500">{member.role}</span>
+      </span>
     </button>
   );
 }
@@ -59,9 +63,9 @@ export function MemberPanel({ member, id }: MemberPanelProps) {
       <img
         src={asset(member.headshotUrl)}
         alt={member.name}
-        width={96}
-        height={96}
-        className="h-24 w-24 shrink-0 rounded-full bg-ink-50 object-cover"
+        width={640}
+        height={800}
+        className="aspect-[4/5] w-28 shrink-0 rounded-[4px] bg-ink-50 object-cover"
       />
       <div className="min-w-0 flex-1">
         <h3 className="text-xl font-medium">{member.name}</h3>
