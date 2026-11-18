@@ -73,7 +73,7 @@ export function Sponsors() {
         lede={
           sponsors.length > 0
             ? `${sponsors.length} partners across nine fields.`
-            : 'We are confirming partners for the 2027 Expo. They appear here as they sign on.'
+            : 'Our first batch of partners will be announced soon.'
         }
       />
 
@@ -104,16 +104,20 @@ export function Sponsors() {
           </div>
         ) : null}
 
-        <SponsorField
-          items={items}
-          isPlacing={isPlacing}
-          onPlace={handlePlace}
-          onCancelPlacing={() => setIsPlacing(false)}
-          previewImpact={isPlacing ? 60 : placement?.impact ?? null}
-          previewDomain={placement?.domain ?? null}
-        />
+        {/* The bubble field shows once there are partners to show. Until then
+            only organizers see it, so they can place the first ones. */}
+        {isAdmin || sponsors.length > 0 ? (
+          <SponsorField
+            items={items}
+            isPlacing={isPlacing}
+            onPlace={handlePlace}
+            onCancelPlacing={() => setIsPlacing(false)}
+            previewImpact={isPlacing ? 60 : placement?.impact ?? null}
+            previewDomain={placement?.domain ?? null}
+          />
+        ) : null}
 
-        <section className="mt-14 border-t border-line pt-8">
+        <section className={isAdmin || sponsors.length > 0 ? 'mt-14 border-t border-line pt-8' : undefined}>
           <h2 className="display-2">Become a partner</h2>
           <p className="mt-2 max-w-[60ch] text-lg leading-[1.55] text-ink-500">
             Write to us with your field and we will send the partner brief. Partners judge, mentor teams, offer

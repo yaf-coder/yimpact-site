@@ -4,14 +4,11 @@ import { Section } from '../components/ui/Section';
 import { buttonClassNames } from '../components/ui/Button';
 import { LitGlobe } from '../components/globe/LitGlobe';
 import { PlainList } from '../components/PlainList';
-import { NewsList } from '../components/PostList';
 import { event } from '../content/event';
 import { domainLabels, domainOrder } from '../content/sponsors';
 import { organizers } from '../content/organizers';
 import { tracks } from '../content/tracks';
-import { pathways } from '../content/pathways';
 import { faq } from '../content/faq';
-import { usePosts } from '../hooks/usePosts';
 import { asset } from '../lib/asset';
 import type { OrganizerRank } from '../types/content';
 
@@ -26,9 +23,6 @@ const fieldList = `${fieldNames.slice(0, -1).join(', ')} and ${fieldNames[fieldN
 
 export function Home() {
   const everyone = [...organizers].sort((a, b) => rankOrder[a.rank] - rankOrder[b.rank]);
-  // The hero must not wait on a request. The news list stays empty until the
-  // stories arrive.
-  const { posts } = usePosts();
 
   return (
     <Layout title="Yale Impact Expo" description={event.tagline}>
@@ -39,9 +33,6 @@ export function Home() {
       <div className="wrap pb-10 pt-4 md:pb-14 md:pt-8">
         <div className="flex flex-col items-center gap-4 text-center md:grid md:grid-cols-1 md:items-stretch md:text-left">
           <div className="contents md:relative md:z-10 md:col-start-1 md:row-start-1 md:flex md:w-[42%] md:flex-col md:items-start md:justify-center md:gap-6 md:self-center md:py-10">
-            <p className="text-sm text-ink-400 [text-wrap:balance]">
-              {event.dateLabel} · {event.venueAddress}
-            </p>
             <h1 className="hero-title max-md:sr-only">
               <span className="hero-the">
                 The <img src={asset('/brand/yale-wordmark.png')} alt="Yale" width={900} height={388} />
@@ -57,6 +48,7 @@ export function Home() {
                 For partners
               </Link>
             </div>
+            <p className="order-4 text-ink-500 md:order-none">{event.expoDate}</p>
           </div>
           <LitGlobe className="order-1 h-[min(74svh,740px)] w-full md:order-none md:col-start-1 md:row-start-1 md:h-auto md:min-h-[min(74svh,680px)]" />
         </div>
@@ -66,22 +58,14 @@ export function Home() {
         <div className="max-w-[62ch] space-y-3.5 text-[17px] leading-[1.6] text-ink-500">
           <p>{event.mission}</p>
           <p>
-            Each project answers one question in its first week: who is better off if this succeeds? The judging
-            panels include the people each project means to serve. It is free and open to every Yale student.
+            You don&rsquo;t need a full solution; you need an idea and the evidence to back up why it would work.
+            Bring something good, and we&rsquo;ll help you make it real.
           </p>
         </div>
       </Section>
 
       <Section heading="Tracks">
         <PlainList columns={2} items={tracks.map((track) => ({ id: track.id, title: track.name, text: track.focus }))} />
-      </Section>
-
-      <Section heading="After the Expo">
-        <p className="mb-6 text-lg text-ink-500">Strong teams leave with help to keep going.</p>
-        <PlainList
-          columns={2}
-          items={pathways.map((pathway) => ({ id: pathway.id, title: pathway.name, text: pathway.summary }))}
-        />
       </Section>
 
       <Section heading="Partners">
@@ -98,8 +82,7 @@ export function Home() {
       <Section heading="When and where">
         <dl className="border-t border-line">
           {[
-            { term: 'Kickoff', value: 'Autumn 2026' },
-            { term: 'Expo weekend', value: 'Spring 2027' },
+            { term: 'Expo weekend', value: event.expoDate },
             { term: 'Where', value: `${event.venueName}, ${event.venueAddress}` },
           ].map((row) => (
             <div key={row.term} className="grid gap-0.5 border-b border-line py-3.5 sm:grid-cols-[160px_minmax(0,1fr)] sm:gap-7">
@@ -124,15 +107,6 @@ export function Home() {
         <p className="mt-5">
           <Link to="/team" className={textLink}>
             Meet the team
-          </Link>
-        </p>
-      </Section>
-
-      <Section heading="News">
-        <NewsList posts={posts.slice(0, 3)} />
-        <p className="mt-5">
-          <Link to="/blog" className={textLink}>
-            All stories
           </Link>
         </p>
       </Section>

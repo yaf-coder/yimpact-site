@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ScrollToTop } from './components/layout/ScrollToTop';
 import { AuthProvider } from './auth/AuthProvider';
@@ -24,6 +25,10 @@ import { AdminHome } from './pages/portal/AdminHome';
 import { AdminThread } from './pages/portal/AdminThread';
 import { AnnouncementForm } from './pages/portal/AnnouncementForm';
 
+// The font picker exists in local development only. In a build this branch is
+// false, so the module is never bundled.
+const FontLab = import.meta.env.DEV ? lazy(() => import('./dev/FontLab')) : null;
+
 // A route guard controls the reader experience only. Row Level Security is the
 // real boundary. Refer to BUILD_SPEC.md, section 4.2.
 export function App() {
@@ -32,6 +37,11 @@ export function App() {
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <AuthProvider>
         <ScrollToTop />
+        {FontLab ? (
+          <Suspense fallback={null}>
+            <FontLab />
+          </Suspense>
+        ) : null}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sponsors" element={<Sponsors />} />

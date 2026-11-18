@@ -9,14 +9,15 @@ export const event: EventDetails = {
   tagline:
     'A semester-long incubator where Yale students work on a real public problem and hand the result to the people who can act on it.',
   mission:
-    'Students pick a public problem, research it with faculty and partners, and build something: a tool, a study, a policy memo, a venture or a pilot plan.',
+    'Students pick a real problem, research it with mentors, and build a solution. These projects are usually oriented at three categories: startups and nonprofits, policy initiatives, and art demonstrations.',
   dateLabel: 'Kickoff autumn 2026 · Expo weekend spring 2027',
   expoSeason: 'spring 2027',
+  expoDate: 'Feb 27–28, 2027',
   startsAt: '2027-04-16T17:00:00-04:00',
   endsAt: '2027-04-18T16:00:00-04:00',
   venueName: 'Yale University',
   venueAddress: 'New Haven, Connecticut',
-  contactEmail: 'hello@yaleimpactexpo.org',
+  contactEmail: 'yafee.khan@yale.edu',
   sponsorEmail: 'yafee.khan@yale.edu',
 };
 

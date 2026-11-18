@@ -3,7 +3,7 @@ import type { ButtonHTMLAttributes, MouseEvent, ReactNode } from 'react';
 export type ButtonVariant = 'primary' | 'secondary';
 
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-[4px] border px-[22px] py-[11px] text-sm font-medium leading-[1.4] transition-colors duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700';
+  'inline-flex items-center justify-center gap-2 rounded-[4px] border font-button px-[22px] py-[11px] text-sm font-medium leading-[1.4] transition-colors duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700';
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary: 'border-transparent bg-blue-700 text-white hover:bg-ink-900',

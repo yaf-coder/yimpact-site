@@ -14,8 +14,9 @@ export function Footer({ contactEmail, sponsorEmail }: FooterProps) {
       <div className="wrap flex flex-wrap items-center justify-between gap-x-7 gap-y-3 py-7 text-sm text-ink-500">
         <img src={asset('/brand/impex.png')} alt="Yale Impact Expo" width={82} height={30} className="h-[30px] w-auto" />
         <p className="flex flex-wrap gap-x-6 gap-y-1 select-all">
-          <span>{contactEmail}</span>
-          <span>{sponsorEmail}</span>
+          {[...new Set([contactEmail, sponsorEmail])].map((address) => (
+            <span key={address}>{address}</span>
+          ))}
         </p>
         <p>© {year} Yale Impact Expo</p>
       </div>

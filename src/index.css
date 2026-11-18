@@ -33,8 +33,10 @@
   --color-blue-100: #d6dcf1;
   --color-blue-50: #eceef6;
 
-  --font-sans: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-sans: 'Atkinson Hyperlegible', 'Helvetica Neue', Arial, sans-serif;
   --font-serif: 'EB Garamond', Georgia, serif;
+  /* Buttons have their own face, so they can differ from the text. */
+  --font-button: var(--font-sans);
 
   --radius-control: 4px;
 
@@ -151,6 +153,42 @@ a {
       linear-gradient(to left, transparent, #000 5%);
     mask-composite: intersect;
   }
+}
+
+/* Line drawings, such as those on the Students page. One stroke weight
+   across a set, in Blue Oblivion, with fills in the page colour so lines
+   behind a shape stay hidden. */
+.line-art {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--color-blue-700);
+}
+
+.line-art .ink {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.line-art .solid {
+  fill: var(--color-white);
+}
+
+.line-art .faint {
+  opacity: 0.45;
+  stroke-width: 1.3;
+}
+
+/* The microchip is drawn at a finer scale, so its lines are thinner. */
+.line-art-fine .ink {
+  stroke-width: 1.4;
+}
+
+.line-art-fine .faint {
+  stroke-width: 0.9;
 }
 
 /* The FAQ marker: a plus that turns to a cross when the answer is open. */

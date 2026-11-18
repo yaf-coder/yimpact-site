@@ -4,12 +4,8 @@ import { asset } from '../../lib/asset';
 
 const navItems = [
   { to: '/sponsors', label: 'Partners' },
-  { to: '/resources', label: 'Resources' },
-  { to: '/alumni', label: 'Alumni' },
   { to: '/students', label: 'Students' },
   { to: '/team', label: 'Team' },
-  { to: '/schedule', label: 'Schedule' },
-  { to: '/blog', label: 'The Record' },
 ];
 
 export function Header() {
