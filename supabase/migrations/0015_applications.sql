@@ -45,10 +45,11 @@ alter table public.profiles add constraint profiles_resume_path_own_ck
   check (resume_path is null or resume_path like (id::text || '/%'));
 
 -- The same list is in src/content/schools.ts. Change both together.
--- NOT VALID keeps an old free-text value. The next save must use the list.
-alter table public.profiles drop constraint if exists profiles_school_ck;
-alter table public.profiles add constraint profiles_school_ck check (
-  school is null or school in (
+create or replace function app.is_yale_school(p_school text)
+returns boolean
+language sql immutable set search_path = ''
+as $$
+  select p_school in (
     'Yale College',
     'Graduate School of Arts and Sciences',
     'School of Architecture',
@@ -65,7 +66,24 @@ alter table public.profiles add constraint profiles_school_ck check (
     'School of Nursing',
     'School of Public Health'
   )
-) not valid;
+$$;
+
+revoke execute on function app.is_yale_school(text) from public;
+grant execute on function app.is_yale_school(text) to authenticated;
+
+-- An old free-text school, for example 'Yale University', is not in the list.
+-- Clear it. The student must then select a school, and the application shows
+-- as incomplete until they do.
+-- Do not keep the old value with NOT VALID. Postgres checks the constraint
+-- again on each update, so a later update of that row fails.
+alter table public.profiles drop constraint if exists profiles_school_ck;
+
+update public.profiles
+set school = null
+where school is not null and not app.is_yale_school(school);
+
+alter table public.profiles add constraint profiles_school_ck
+  check (school is null or app.is_yale_school(school));
 
 grant update (resume_path) on table public.profiles to authenticated;
 
